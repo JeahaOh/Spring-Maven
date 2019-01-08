@@ -4,7 +4,7 @@ Maven을 이용한 Spring Study
 - - -
 
 ## Maven 설치와 환경변수 잡기
-```
+
 - terminal
     - brew install maven
         - mvn -version
@@ -19,4 +19,4 @@ Maven을 이용한 Spring Study
         - /usr/local/Cellar/maven/3.6.0/libexec
         - ➜  ~ echo ${M2}
         - /usr/local/Cellar/maven/3.6.0/libexec/bin
-```
+
