@@ -2,7 +2,14 @@
 Maven을 이용한 Spring Study
 
 - - -
+## 회사에서 sts를 사용하니 sts도 깔아보도록 하자
+https://spring.io/tools
 
+- [new]-[others]-[Spring]-[Spring Legacy Project]
+    - Templates에서 Spring MVC Project 선택
+(여기까지 엄청 헤맸음... 딮빡...)
+(참고 https://hanazuou.tistory.com/158 )
+- - -
 ## Maven 설치와 환경변수 잡기
 
 - terminal
