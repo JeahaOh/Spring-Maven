@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="true">
+	<!-- net.sf.log4jdbc.sql.jdbcapi.DriverSpy -->
+	<include resource="org/springframework/boot/logging/logback/base.xml"/>
+	
+	<!-- log4jdbc-log4j2 -->
+	<logger name="jdbc.splonly" level="DEBUG"/>
+	<logger name="jdbc.sqltiming" level="INFO"/>
+	<logger name="jdbc.audit" level="WARN"/>
+	<logger name="jdbc.resultset" level="ERROR"/>
+	<logger name="jdbc.resultsettable" level="DEBUG"/>
+	<logger name="jdbc.connection" level="INFO"/>
+	
 	<appender class="ch.qos.logback.core.ConsoleAppender" name="console">
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<pattern> ▶ %-5level %d{HH:mm:ss.SSS} [%thread] %logger[%method:%line] - %msg%n </pattern>
@@ -9,6 +20,7 @@
 	<logger name="com.study.spring" level="debug"> </logger>
 	
 	<!-- 3rdparty Loggers -->
+	<!-- 
 	<logger name="org.springframework.core">
 		<level value="INFO"/>
 	</logger>
@@ -28,13 +40,6 @@
 	<root level="debug">
 		<appender-ref ref="console"/>
 	</root>
+	 -->
 	
-	<!-- net.sf.log4jdbc.sql.jdbcapi.DriverSpy -->
-	<include resource="org/springframework/boot/logging/logback/base.xml"/>
-	<logger name="jdbc.splonly" level="DEBUG"/>
-	<logger name="jdbc.sqltiming" level="INFO"/>
-	<logger name="jdbc.audit" level="WARN"/>
-	<logger name="jdbc.resultset" level="ERROR"/>
-	<logger name="jdbc.resultsettable" level="DEBUG"/>
-	<logger name="jdbc.connection" level="INFO"/>
 </configuration>

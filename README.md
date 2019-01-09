@@ -2,7 +2,12 @@
 Maven을 이용한 Spring Study
 
 - - -
-## 회사에서 sts를 사용하니 sts를 사용해 보도록 하자.
+
+## 19.01.09 설정 잡기...
+    Gradle과 Maven으로 build한 Spring의 구조가 달라서? 인지 뭐가 뭔지 잘 모르겠음...
+    일단 책을 사도록 하자...
+
+## 19.01.08 회사에서 sts를 사용하니 sts를 사용해 보도록 하자.
 https://spring.io/tools
 
 - [new]-[others]-[Spring]-[Spring Legacy Project]
@@ -10,7 +15,7 @@ https://spring.io/tools
 (여기까지 엄청 헤맸음... 딮빡...)
 (참고 https://hanazuou.tistory.com/158 )
 - - -
-## Maven 설치와 환경변수 잡기
+## 19.01.08 Maven 설치와 환경변수 잡기
 
 - terminal
     - brew install maven
