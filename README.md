@@ -2,7 +2,7 @@
 Maven을 이용한 Spring Study
 
 - - -
-## 회사에서 sts를 사용하니 sts도 깔아보도록 하자
+## 회사에서 sts를 사용하니 sts를 사용해 보도록 하자.
 https://spring.io/tools
 
 - [new]-[others]-[Spring]-[Spring Legacy Project]
