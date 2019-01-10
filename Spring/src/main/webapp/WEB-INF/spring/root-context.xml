@@ -21,11 +21,7 @@
 		<property name="password" value="exam_manager!" />
 	</bean>
 	
-	<!--   mybatis Session 생성 -->
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
-	</bean>
-	
+
 	<!--  mybatis SessionFactory 생성 -->
 	<bean id="sqlSessionFactoryBean"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -36,12 +32,20 @@
 		<property name="mapperLocations" value="classpath:mapper/**/*.xml" />
 	</bean>
 	
+	<!-- 여기까진 에러 안남? -->
+	
+	<!--   mybatis Session 생성 -->
+	<!-- <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean> -->
 	
 	
 	<!-- 지정된 베이스 패키지에서 DAO(Mapper) 를 검색하여 등록 -->
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	<!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.study.spring.emp.dao" />
-	</bean>
+	</bean> -->
+	
+	
 	<!-- 트랜잭션 매니저 bean
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
