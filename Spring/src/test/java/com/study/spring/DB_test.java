@@ -2,11 +2,9 @@ package com.study.spring;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import oracle.jdbc.driver.OracleConnection;
 
 public class DB_test {
@@ -17,8 +15,8 @@ public class DB_test {
     ="oracle.jdbc.driver.OracleDriver";
     //	연결문자열 jdbc:oracle:thin:@호스트:포트:sid
     private static final String URL
-//    ="jdbc:oracle:thin:@192.168.0.11:1521:orcl";
-    ="jdbc:log4jdbc:oracle:thin:@192.168.0.11:1521:orcl";
+    ="jdbc:oracle:thin:@192.168.0.11:1521:orcl";
+//    ="jdbc:log4jdbc:oracle:thin:@192.168.0.11:1521:orcl";
     private static final String USER="exam_manager";
     private static final String PW="exam_manager!";
     
