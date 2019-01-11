@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="code">
+	<select id="codeListAll" resultType="map">
+		SELECT *
+		FROM codemng
+		
+		START WITH upcd='C0000'
+		
+		CONNECT BY PRIOR cdno = upcd
+	</select>
+	<insert id="insertCode" parameterType="map">
+		INSERT INTO EXAM_MANAGER.CODEMNG (CDNO, CDLVL, UPCD, CDNAME, INSUSER, INSDATE, USEYN)
+		VALUES ((select concat('C',lpad(substr(max(CDNO),2)+1,4,'0')) from CODEMNG),#{cdlvl} ,#{upcd} ,#{cdname} ,'admin' ,sysdate ,#{useyn} )
+	</insert>
+	<update id="updateCode" parameterType="map">
+		UPDATE EXAM_MANAGER.CODEMNG
+		SET 
+		    CDLVL   = #{cdlvl}, 
+		    UPCD    = #{upcd}, 
+		    CDNAME  = #{cdname}, 
+		    USEYN   = #{useyn}
+		WHERE CDNO=#{cdno}
+	</update>
+	<select id="madeCodeList" resultType="map">
+		select * from codemng where upcd='C0050'
+	</select>
+	<select id="unitCodeList" resultType="map">
+		select * from codemng where upcd='C0060'
+	</select>
+	<select id="cateCodeList" resultType="map">
+		select * from codemng where upcd='C0070'
+	</select>
+	<select id="groupList" resultType="map" parameterType="string">
+		select * from codemng where upcd=#{catecode}
+	</select>
+</mapper>

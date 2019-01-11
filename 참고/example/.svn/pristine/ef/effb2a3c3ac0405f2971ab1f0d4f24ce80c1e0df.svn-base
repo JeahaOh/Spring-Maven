@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="item">
+	<select id="itemListAll" resultType="map">
+		select	i.itemcd, 
+				i.itemname, 
+				i.madenmcd, 
+				c.cdname madename, 
+				i.itemunitcd, 
+				cd.cdname unitname, 
+				i.stockamt,
+				i.stockyn,
+				i.useyn,
+				i.itemclscd
+		from itemlist i 
+		join codemng c on(i.madenmcd=c.cdno)
+		join codemng cd on(i.itemunitcd=cd.cdno)
+		order by itemclscd
+	</select>
+	<select id="itemSearch" resultType="map" parameterType="string">
+		select	i.itemcd, 
+				i.itemname, 
+				i.madenmcd, 
+				c.cdname madename, 
+				i.itemunitcd, 
+				cd.cdname unitname, 
+				i.stockamt,
+				i.stockyn,
+				i.useyn,
+				i.itemclscd
+		from itemlist i
+		join codemng c on(i.madenmcd=c.cdno)
+		join codemng cd on(i.itemunitcd=cd.cdno)
+		where i.itemclscd=#{groupcode}
+		order by itemclscd
+	</select>
+	<insert id="insertItem" parameterType="map">
+		INSERT INTO EXAM_MANAGER.ITEMLIST 
+		(
+			 ITEMCD,
+			 ITEMNAME,
+			 MADENMCD,
+			 ITEMUNITCD,
+			 STOCKAMT, 
+			 STOCKYN, 
+			 INSUSER, 
+			 INSDATE, 
+			 USEYN, 
+			 ITEMCLSCD
+		)
+	    VALUES 
+	    (
+		     (select concat('I',lpad(substr(max(ITEMCD),2)+1,4,'0'))  from ITEMLIST),
+		     #{itemname},
+		     #{madenmcd}, 
+		     #{itemunitcd},
+		     default,
+		     default, 
+		     'admin', 
+		     sysdate, 
+		     #{useyn}, 
+		     #{groupcode}
+	    )
+	</insert>
+	<update id="updateItem" parameterType="map">
+		UPDATE EXAM_MANAGER.ITEMLIST
+		SET 
+		    ITEMNAME   = #{itemname}, 
+		    MADENMCD   = #{madenmcd}, 
+		    ITEMUNITCD = #{itemunitcd}, 
+		    USEYN      = #{useyn}
+		WHERE ITEMCD=#{itemcd}
+	</update>
+	<select id="inItemList" resultType="map" parameterType="date">
+		SELECT
+			II.ITEMCD,
+			I.ITEMNAME,
+			I.MADENMCD,
+			C.CDNAME MADENAME,
+			I.ITEMUNITCD,
+			CD.CDNAME UNITNAME,
+			II.INSAMT,
+			II.INSITEMLISTCD
+		FROM 
+		    INITEMLIST II
+		JOIN
+			ITEMLIST I ON(II.ITEMCD=I.ITEMCD)
+		JOIN
+			CODEMNG C ON(I.MADENMCD=C.CDNO)
+		JOIN 
+			CODEMNG CD ON(I.ITEMUNITCD=CD.CDNO)
+		WHERE
+			II.INSDATE=TO_DATE(SYSDATE,'YY/MM/DD')
+	</select>
+	<insert id="insertAmt" parameterType="map">
+		INSERT INTO EXAM_MANAGER.INITEMLIST 
+		(
+			ITEMCD, 
+			INSITEMLISTCD, 
+			INSAMT, 
+			INSDATE, 
+			INSUSER
+		)
+		VALUES 
+		(
+			#{itemcd},
+			(select concat('II',lpad(substr(max(INSITEMLISTCD),3)+1,8,'0'))  from INITEMLIST),
+			#{insamt},
+			sysdate,
+			'admin'
+		)
+	</insert>
+	<update id="updateItemAmt" parameterType="map">
+			UPDATE EXAM_MANAGER.ITEMLIST
+			SET 
+			    STOCKAMT   = STOCKAMT+#{insamt}
+			WHERE ITEMCD=#{itemcd}
+	</update>
+	<update id="updateInItemAmt" parameterType="map">
+			UPDATE EXAM_MANAGER.INITEMLIST
+			SET
+			    INSAMT=#{insamt} 
+			WHERE INSITEMLISTCD=#{initemcd}
+	</update>
+	<update id="updateAmt" parameterType="map">
+			UPDATE EXAM_MANAGER.ITEMLIST
+			SET  
+			    STOCKAMT=STOCKAMT-#{beforeamt}+#{insamt}
+			WHERE ITEMCD=#{itemcd} 
+	</update>
+	<select id="outItemList" resultType="map">
+		SELECT 
+			O.ITEMCD,
+			I.ITEMNAME,
+			I.MADENMCD,
+			C.CDNAME MADENAME,
+			CD.CDNAME UNITNAME,
+			O.DELIVAMT,
+			U.ID,
+			U.DELIVNAME,
+			CDD.CDNAME RELNAME,
+			U.ADDRCD,
+			U.ADDRNAME,
+			U.MOBILETELNO,
+			U.HOMETELNO,
+			O.CHECKYN,
+			O.DELIVYN,
+			O.DELIVCORPCD,
+			O.DELIVNO,
+			O.OUTITEMLISTCD
+		FROM 
+			EXAM_MANAGER.OUTITEMLIST O
+		JOIN 
+			EXAM_MANAGER.ITEMLIST I ON(O.ITEMCD=I.ITEMCD)
+		JOIN
+			EXAM_MANAGER.CODEMNG C ON(I.MADENMCD=C.CDNO)
+		JOIN
+			EXAM_MANAGER.CODEMNG CD ON(I.ITEMUNITCD=CD.CDNO)
+		JOIN
+			EXAM_MANAGER.USERINFODETAIL U ON(O.USERINFODETAILCD=U.USERINFODETAILCD)
+		JOIN 
+			EXAM_MANAGER.CODEMNG CDD ON(U.RELCD=CDD.CDNO)
+		ORDER BY 1
+	</select>
+	<select id="delivCo" resultType="map">
+		SELECT 
+			* 
+		FROM
+			EXAM_MANAGER.CODEMNG
+		WHERE 
+			UPCD='C0080' 
+	</select>
+	<update id="outItemSave" parameterType="map">		
+		UPDATE EXAM_MANAGER.OUTITEMLIST
+		SET 
+		    CHECKYN          = #{checkyn}, 
+		    DELIVYN          = #{delivyn}, 
+		    DELIVCORPCD      = #{delivcorpcd}, 
+		    DELIVNO          = #{delivno} 
+		WHERE OUTITEMLISTCD=#{outitemlistcd}
+	</update>
+	<update id="itemStockUpdate" parameterType="map">
+		UPDATE EXAM_MANAGER.ITEMLIST
+		SET 
+		    STOCKAMT   =STOCKAMT-#{delivamt}
+		WHERE ITEMCD=#{itemcd}
+	</update>
+</mapper>
