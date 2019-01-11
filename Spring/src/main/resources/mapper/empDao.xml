@@ -3,11 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="emp">
-	<select id="empList" resultType="map">
+<mapper namespace="com.study.spring.emp.dao.empDao">
+	<select id="empList" resultType="Object">
 		SELECT
 			ENAME
- 			, COMM
+			, COMM
 			, HIREDATE
 			, EMPNO
 			, MGR
