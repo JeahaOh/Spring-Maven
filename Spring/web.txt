@@ -1,0 +1,4 @@
+https://offbyone.tistory.com/18
+https://jeong-pro.tistory.com/168
+http://www.mybatis.org/mybatis-3/ko/configuration.html
+http://www.mybatis.org/mybatis-3/ko/configuration.html#properties
