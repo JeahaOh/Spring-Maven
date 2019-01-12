@@ -2,6 +2,14 @@
 Maven을 이용한 Spring Study
 
 - - -
+## DB연결과 Mybatis
+여기서 계속 헤매서 다 지우고 다시 프로젝트 만들게 된 계기임..
+- 기본 JDBC 연결 test.
+- log4jdbc로 연결 test.
+- Mybatis 연결
+순차적으로 진행 하는것으로.
+
+- - -
 ## 19.01.12 로그 남기기
 
 spring에서 기본적으로 common-logging을 사용하고 있는데,
@@ -18,6 +26,7 @@ logback.xml을 설정해줌. -> DB연결에 관하여 로그를 남겨줌.
 ```
 Dependency 추가하는 김에 최신버전으로
 
+- - -
 ## 19.01.12 스프링 개발 환경 설정과 실행 과정
 ```
 1. 클라이언트 요청(/, root 페이지 요청)
@@ -99,6 +108,7 @@ Dependency 추가하는 김에 최신버전으로
 ```
 
 #### /WEB-INF/spring/appServlet/servlet-context.xml
+- 스프링에서 관리하는 bean의 기본 디렉토리.
 - web.xml에서 DispatcherServlet로 이동하게 되고, serlet-conext.xml을 참조하게 됨.
 ```
         <annotation-driven />
