@@ -2,6 +2,112 @@
 Maven을 이용한 Spring Study
 
 - - -
+## 19.01.12 스프링 실행 과정
+```
+1. 클라이언트 요청(/, root 페이지 요청)
+2. web.xml에서 dispatcherServlet이 클라이언트 요청을 핸들링(Model, View, Controller를 조합하여 브라우져로 출력해 주는 역할).
+3. servlet-context.xml에서 해당 클래스의 웹 요청을 처리하는 컨트롤러를 사용.(HandlerMapping으로 Controller 검색)
+4. 해당 Controller가 요청을 처리한 후, 주소 리턴.
+5. View에 출력.
+```
+```
+1. Client -> URL로 접근하여 정보를 요청 -> DispatcherServlet.
+2. DispatcherServlet -> 해당 요청을 매핑한 컨트롤러가 있는지 검색 -> HandlerMapping.
+3. HandlerMapping -> 처리 요청 -> Controller.
+4. Controller -> 클라이언트의 요청을 처리하고 결과를 출력할 View의 이름을 리턴 -> DispatcherServlet.
+5. DispatcherServlet -> 컨트롤러에서 보내온 view 이름을 토대로 처리 view를 검색.
+6. ViewResolver -> 처리결과를 View에 송신 -> View.
+7. View -> 처리 결과가 포함된 View를 DispatcherServlet에 송신. -> DispatcherServlet.
+8. DispatcherServlet -> 최종결과 출력 -> Client.
+```
+
+/WEB-INF/web.xml
+    - 웹 프로젝트의 배치 기술서(deploy descriptor).
+    - 웹 프로젝트의 환경 설정 파일.
+    - 스프링 프로젝트가 실행되면 가장 먼저 web.xml을 읽어 들이게 되고 위에서부터 차례로 태그를 해석함.
+```
+        <!-- 스프링의 환경 설정 파일 로딩. -->
+        <context-param>
+            <param-name>contextConfigLocation</param-name>
+            <!-- 스프링의 환경 설정 파일인 root0context.xml을 가장 먼저 참조. -->
+            <param-value>/WEB-INF/spring/root-context.xml</param-value>
+        </context-param>
+        <listener>
+            <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+        </listener>
+
+        <!-- 서블릿의 환경 설정. -->
+        <servlet>
+            <servlet-name>appServlet</servlet-name>
+            <!-- 스프링에 내장된 DispatcherServlet 클래스를 디폴트 서블릿으로 설정. -->
+            <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+            <!-- 모든 서블릿 요청은 DispatcherServlet에서 처리됨. -->
+            <!-- DispatcherServlet : Model, View, Controller를 조합하여 브라우져로 출력하는 역할을 하는 클래스. -->
+            <init-param>
+                <param-name>contextConfigLocation</param-name>
+                <param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+                <!-- servlet-context.xml 참조. -->
+                <!-- servlet-context.xml 파일 안에 정의된 객체를 로딩. -->
+            </init-param>
+            <!-- 가장 첫번째 우선순위로 -->
+            <load-on-startup>1</load-on-startup>
+        </servlet>
+        <servlet-mapping>
+            <servlet-name>appServlet</servlet-name>
+            <url-pattern>/</url-pattern>
+            <!-- / (root) : DispatcherServlet이 모든 요청을 가로챌 수 있도록 함. -->
+        </servlet-mapping>
+        
+        <!-- 한글 처리를 위한 인코딩 필터. -->	
+        <filter>
+            <filter-name>encoding</filter-name>
+            <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+            <init-param>
+                <param-name>encoding</param-name>
+                <param-value>UTF-8</param-value>
+            </init-param>
+            <init-param>
+                <param-name>forceEncoding</param-name>
+                <param-value>true</param-value>
+            </init-param>
+        </filter>
+        <filter-mapping>
+            <filter-name>encoding</filter-name>
+            <url-pattern>/*</url-pattern>
+        </filter-mapping>
+        
+        <!-- 서버의 루트 주소만을 입력하여 접근했을 경우 보여줄 파일. -->
+        <welcome-file-list>
+            <welcome-file>home.jsp</welcome-file>
+        </welcome-file-list>
+```
+
+/WEB-INF/spring/appServlet/servlet-context.xml
+    - web.xml에서 DispatcherServlet로 이동하게 되고, serlet-conext.xml을 참조하게 됨.
+```
+        <annotation-driven />
+        <!-- @annotation을 사용 가능하게. -->
+
+        <resources mapping="/resources/**" location="/resources/" />
+        <!--  -->
+
+        <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- ViewResolver : (뷰 해석기) 접두어, 접미어 설정으로 파일명만 작성할 수 있게 함. -->
+            <beans:property name="prefix" value="/WEB-INF/views/" />
+            <!-- 접두어 : 디렉토리. -->
+            <beans:property name="suffix" value=".jsp" />
+            <!-- 접미어 : 확장자. -->
+        </beans:bean>
+        
+        <context:component-scan base-package="com.study.spring" />
+        <!-- 위 패키지 아래의 파일(@Controller)들을 스프링에서 관리하는 컨트롤러로 자동으로 검색, 등록. -->
+```
+/WEB-INF/spring/root-context.xml
+    - 스프링 프로젝트에서 사용하는 고정적인 데이터(DB정보 등)를 빈으로 생성함.
+```
+    일단은 비워둠.
+```
+
 ## 19.01.12 스프링 주요 특징
 - POJO (Plain Old Java Object) : 별도의 API가 필요하지 않은 일반적인 자바코드를 이용하여 개발 가능.
 - 의존성 주입(DI)를 통한 객체간의 관계 구성.
@@ -20,6 +126,8 @@ Maven을 이용한 Spring Study
         - 따라서 낮은 결합과 높은 응집도로 코딩해야함.
 
 ## 19.01.12 Maven Spring 구조
+Spring : 셋팅이 반을 먹고 들어감...
+
     |- src/main/java            - 자바코드 디렉토리.(Controller, Model, Service)
     |- src/main/resources       - 자바 코드에서 참조하는 리소스 디렉토리.
     |    |- /mybatis-Config.xml, (mybatis의)mapper.xml
@@ -33,9 +141,7 @@ Maven을 이용한 Spring Study
     |                   |       |-  /appServlet/servlet-context.xml - 서블릿과 관련된 리소스에 대한 설정.
     |                   |       |-  /root-context.xml   - 서블릿과 관련되지 않은 모든 리소스에 대한 설정.
     |                   |-  /views      - html, jsp 디렉토리.
-    |-  pom.xml                 - 메이븐에서 참조하는 설정파일.
-    
-    *Spring : 셋팅이 반을 먹고 들어감...*
+    |-  pom.xml     - 메이븐에서 참조하는 설정파일.
 
 - - -
 ## 19.01.09 설정 잡기...

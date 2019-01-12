@@ -6,21 +6,22 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-
-	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
-	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
+	<!-- @annotation을 사용 가능하게. -->
 
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
+	<!--  -->
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<!-- ViewResolver : (뷰 해석기) 접두어, 접미어 설정으로 파일명만 작성할 수 있게 함. -->
 		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<!-- 접두어 : 디렉토리. -->
 		<beans:property name="suffix" value=".jsp" />
+		<!-- 접미어 : 확장자. -->
 	</beans:bean>
 	
 	<context:component-scan base-package="com.study.spring" />
+	<!-- 위 패키지 아래의 파일(@Controller)들을 스프링에서 관리하는 컨트롤러로 자동으로 검색, 등록. -->
 
 </beans:beans>
