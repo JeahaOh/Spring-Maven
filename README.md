@@ -2,6 +2,22 @@
 Maven을 이용한 Spring Study
 
 - - -
+## 19.01.12 로그 남기기
+
+spring에서 기본적으로 common-logging을 사용하고 있는데,
+성능, 기능적인 면에서 우세한 SLF4J 인터페이스를 구현한 Logback을 사용함.
+그다지 중요한 문제는 아니니 기본적으로 추가되어 있는 log lib와 logback-classic을 같이 사용해 보자.
+logback.xml을 설정해줌. -> DB연결에 관하여 로그를 남겨줌.
+```
+<dependency>
+    <groupId>ch.qos.logback</groupId>
+    <artifactId>logback-classic</artifactId>
+    <version>1.2.3</version>
+    <scope>test</scope>
+</dependency>
+```
+Dependency 추가하는 김에 최신버전으로
+
 ## 19.01.12 스프링 개발 환경 설정과 실행 과정
 ```
 1. 클라이언트 요청(/, root 페이지 요청)
@@ -29,7 +45,7 @@ Maven을 이용한 Spring Study
         <!-- 스프링의 환경 설정 파일 로딩. -->
         <context-param>
             <param-name>contextConfigLocation</param-name>
-            <!-- 스프링의 환경 설정 파일인 root0context.xml을 가장 먼저 참조. -->
+            <!-- 스프링의 환경 설정 파일인 root-context.xml을 가장 먼저 참조. -->
             <param-value>/WEB-INF/spring/root-context.xml</param-value>
         </context-param>
         <listener>
