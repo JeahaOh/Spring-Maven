@@ -6,9 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.springframework.core.env.Environment;
-
-public class DBConnectionTest {
+public class MysqlDBConnectionTest {
 	
 	static final String JDBC_DRIVER = "net.sf.log4jdbc.sql.jdbcapi.DriverSpy";  
 	static final String DB_URL = "jdbc:log4jdbc:mysql://localhost:3306/studydb";
