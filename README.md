@@ -2,7 +2,7 @@
 Maven을 이용한 Spring Study
 
 - - -
-## 19.01.12 스프링 실행 과정
+## 19.01.12 스프링 개발 환경 설정과 실행 과정
 ```
 1. 클라이언트 요청(/, root 페이지 요청)
 2. web.xml에서 dispatcherServlet이 클라이언트 요청을 핸들링(Model, View, Controller를 조합하여 브라우져로 출력해 주는 역할).
@@ -21,10 +21,10 @@ Maven을 이용한 Spring Study
 8. DispatcherServlet -> 최종결과 출력 -> Client.
 ```
 
-/WEB-INF/web.xml
-    - 웹 프로젝트의 배치 기술서(deploy descriptor).
-    - 웹 프로젝트의 환경 설정 파일.
-    - 스프링 프로젝트가 실행되면 가장 먼저 web.xml을 읽어 들이게 되고 위에서부터 차례로 태그를 해석함.
+#### /WEB-INF/web.xml
+- 웹 프로젝트의 배치 기술서(deploy descriptor).
+- 웹 프로젝트의 환경 설정 파일.
+- 스프링 프로젝트가 실행되면 가장 먼저 web.xml을 읽어 들이게 되고 위에서부터 차례로 태그를 해석함.
 ```
         <!-- 스프링의 환경 설정 파일 로딩. -->
         <context-param>
@@ -82,8 +82,8 @@ Maven을 이용한 Spring Study
         </welcome-file-list>
 ```
 
-/WEB-INF/spring/appServlet/servlet-context.xml
-    - web.xml에서 DispatcherServlet로 이동하게 되고, serlet-conext.xml을 참조하게 됨.
+#### /WEB-INF/spring/appServlet/servlet-context.xml
+- web.xml에서 DispatcherServlet로 이동하게 되고, serlet-conext.xml을 참조하게 됨.
 ```
         <annotation-driven />
         <!-- @annotation을 사용 가능하게. -->
@@ -102,12 +102,19 @@ Maven을 이용한 Spring Study
         <context:component-scan base-package="com.study.spring" />
         <!-- 위 패키지 아래의 파일(@Controller)들을 스프링에서 관리하는 컨트롤러로 자동으로 검색, 등록. -->
 ```
-/WEB-INF/spring/root-context.xml
-    - 스프링 프로젝트에서 사용하는 고정적인 데이터(DB정보 등)를 빈으로 생성함.
+
+#### WEB-INF/spring/root-context.xml
+- 스프링 프로젝트에서 사용하는 고정적인 데이터(DB정보 등)를 빈으로 생성함.
 ```
     일단은 비워둠.
 ```
 
+#### pom.xml
+- Maven Spring의 특징.
+- 메이븐에서 참조하는 설정파일.
+- Gradle Spring에서 build.gradle 파일과 같은 역할.
+
+- - -
 ## 19.01.12 스프링 주요 특징
 - POJO (Plain Old Java Object) : 별도의 API가 필요하지 않은 일반적인 자바코드를 이용하여 개발 가능.
 - 의존성 주입(DI)를 통한 객체간의 관계 구성.
@@ -125,6 +132,7 @@ Maven을 이용한 Spring Study
         - 강한 결합은 유지 보수와 재활용을 힘들게 함.
         - 따라서 낮은 결합과 높은 응집도로 코딩해야함.
 
+- - -
 ## 19.01.12 Maven Spring 구조
 Spring : 셋팅이 반을 먹고 들어감...
 
@@ -148,6 +156,7 @@ Spring : 셋팅이 반을 먹고 들어감...
     Gradle과 Maven으로 build한 Spring의 구조가 달라서? 인지 뭐가 뭔지 잘 모르겠음...
     일단 책을 사도록 하자...
 
+- - -
 ## 19.01.08 현업에서 sts를 사용한다고 하니 sts를 사용해 보도록 하자.
 https://spring.io/tools
 
@@ -155,10 +164,11 @@ https://spring.io/tools
     - Templates에서 Spring MVC Project 선택
 (여기까지 엄청 헤맸음... 딮빡...)
 (참고 https://hanazuou.tistory.com/158 )
+
 - - -
 ## 19.01.08 Maven 설치와 환경변수 잡기
 
-- terminal
+- terminal 실행
     - brew install maven
         - mvn -version
     - sudo vi ~/.bash_profile
