@@ -1,4 +1,4 @@
-package com.study.spring.db;
+package com.study.spring.db.test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

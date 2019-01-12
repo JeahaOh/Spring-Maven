@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring
+		http://mybatis.org/schema/mybatis-spring.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- common dbcp : 커넥션 풀 사용. -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="${database.driverClass}"></property>
-		<property name="url" value="${database.url}"></property>
-		<property name="username" value="${database.username}"></property>
-		<property name="password" value="${database.password}"></property>
+<!-- 
+		<property name="driverClassName" value="${mydb.driverClass}"></property>
+		<property name="url" value="${mydb.url}"></property>
+		<property name="username" value="${mydb.username}"></property>
+		<property name="password" value="${mydb.password}"></property>
+ -->
+ 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+		<property name="url" value="jdbc:log4jdbc:mysql://localhost:3306:studydb"></property>
+		<property name="username" value="study"></property>
+		<property name="password" value="1111"></property>
 	</bean>
 	
 	<!-- 데이터베이스 설정값이 저장된 .properties 파일의 위치. -->
@@ -19,10 +30,18 @@
 	<context:property-placeholder location="classpath:db/mysql.properties" />
 	<!-- <context:property-placeholder location="classpath:db/orcl.properties" /> -->
 	
-	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<!-- SessionFactory 객체 생성 --> 
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
-		<property name="typeAliasesPackage" value="com.study.spring.db.dao"></property>
-		<property name="mapperLocations" value="classpath:mapper/**/*.xml" />
+		<!-- mybatis 설정파일 경로 (classpath => src/main/resources 디렉토리) -->
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		<!-- mybatis mapper 파일의 경로 -->
+		<property name="mapperLocations" value="classpath:mapper/**/*.xml" />
+		<!-- <property name="typeAliasesPackage" value="com.study.spring.db.dao"></property> -->
 	</bean>
+	
+	<!-- sqlSession 생성 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="close">
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
 </beans>
