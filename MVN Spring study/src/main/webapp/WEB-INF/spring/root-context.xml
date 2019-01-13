@@ -55,7 +55,8 @@
 		<constructor-arg name="sqlSessionFactory"
 			ref="sqlSessionFactory" />
 	</bean>
-
+	
+	<!-- @Configuration -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.study.spring.db.dao" />
 	</bean>
