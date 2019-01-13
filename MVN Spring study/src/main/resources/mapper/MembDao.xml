@@ -2,15 +2,10 @@
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="memb">
-	<select id="membList" resultType="map">
+<mapper namespace="com.study.spring.db.dao.MembDao">
+	<select id="membList" resultType="int">
 		SELECT 
-			mno,
-			name,
-			email,
-			pwd,
-			tel,
-			cdt
+			mno
 		FROM p1_memb
 	</select>
 </mapper>

@@ -8,8 +8,6 @@
         <setting name="jdbcTypeForNull" value="NULL" />
     </settings>
 	<typeAliases>
-
+		<typeAlias type="com.study.spring.db.domain.Memb" alias="memb"/>
 	</typeAliases>
-	
-
 </configuration>
