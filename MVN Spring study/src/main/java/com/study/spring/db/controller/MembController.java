@@ -20,12 +20,12 @@ public class MembController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model) {
 		
-		try {
+//		try {
 			List<Memb> membList = membService.membList();
 			model.addAttribute("membList", membList);
-		}	catch (Exception e) {
-			e.printStackTrace();
-		}
+//		}	catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		
 		return "dbList";
 	}
