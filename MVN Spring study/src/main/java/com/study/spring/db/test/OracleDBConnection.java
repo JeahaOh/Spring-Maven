@@ -12,9 +12,9 @@ public class OracleDBConnection {
 		try {
 			String user = "exam_manager"; 
 			String pw = "exam_manager!";
-			String url = "jdbc:log4jdbc:oracle:thin:@192.168.0.11:1521:orcl";
+			String url = "jdbc:oracle:thin:@192.168.0.11:1521:orcl";
 
-			Class.forName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");        
+			Class.forName("oracle.jdbc.OracleDriver");        
 			conn = DriverManager.getConnection(url, user, pw);
 
 			System.out.println("Database에 연결되었습니다.\n");
