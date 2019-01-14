@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.study.spring.db.dao.UserDao">
+	<select id="login" parameterType="string" resultType="com.study.spring.db.domain.User">
+		SELECT 
+			ID,
+			PASS,
+			NAME,
+			INSDATE,
+			USEYN
+		FROM
+			UserInfo
+		WHERE
+			ID = '${userId}'
+			AND PASS = '${userPwd}'
+	</select>
+</mapper>

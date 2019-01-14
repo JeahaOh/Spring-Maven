@@ -24,20 +24,15 @@
 			<property name="username" value="${orcl.username}"></property>
 			<property name="password" value="${orcl.password}"></property>
 		
-		
 		<!-- 
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<property name="url" value="jdbc:log4jdbc:mariadb//localhost:3306/studydb"></property>
 		
-		
-		
 		<property name="driverClassName" value="com.mariadb.jdbc.Driver"></property>
 		<property name="url" value="jdbc:mysql://localhost:3306:studydb"></property>
 		
-		
 		<property name="username" value="study"></property>
 		<property name="password" value="1111"></property>
-		
 		 -->
 	</bean>
 
@@ -64,7 +59,5 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.study.spring.db.dao" />
 	</bean>
-
-
 
 </beans>

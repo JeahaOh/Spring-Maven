@@ -10,5 +10,14 @@
 <body>
 	<h1>Hello world!</h1>
 	<P>The time on the server is ${serverTime}.</P>
+	<hr>
+	<div class="subjectList">
+		<div>
+			<a href="memb/list">EMP List</a>
+		</div>
+		<div>
+			<a href="user/manage">Login</a>
+		</div>
+	</div>
 </body>
 </html>
