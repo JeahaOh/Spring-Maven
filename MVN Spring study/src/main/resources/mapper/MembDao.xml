@@ -3,14 +3,21 @@
 	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.study.spring.db.dao.MembDao">
-	<select id="membList" resultType="String">
+	<select id="membList" resultType="Map">
 		<!-- 	
 		SELECT 
 			mno
 		FROM p1_memb
 		 -->
 		SELECT 
-			ENAME
+			ENAME,
+			COMM,
+			HIREDATE,
+			EMPNO,
+			MGR,
+			JOB,
+			DEPTNO,
+			SAL
 		FROM
 			EMP
 	</select>
