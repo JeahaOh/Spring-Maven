@@ -2,12 +2,32 @@
 Maven을 이용한 Spring Study
 
 - - -
-## DB연결과 Mybatis
+## 19.01.12 - 14 DB연결과 Mybatis
 여기서 계속 헤매서 다 지우고 다시 프로젝트 만들게 된 계기임..
 - 기본 JDBC 연결 test.
 - log4jdbc로 연결 test.
 - Mybatis 연결
 순차적으로 진행 하는것으로.
+
+- NoSuchBeanDefinitionException: No qualifying bean of type ~~
+    - 문제는 DAO Interface와 Mapper를 연결을 못해주는것 이였음.
+    - JAVA code로 짰다면 @Configuration쓰면 간단한 것인지라 문제 없었을 텐데
+    - 익숙하지 않은 xml이여서 헤맨듯.
+    - root-context.xml에 아래 같이 넣어주면 해결됨.
+    - 아마 더 간단하게 끝내는 방법도 있지 않을까 싶음.
+```
+<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	<property name="basePackage" value="com.study.spring.db.dao" />
+</bean>
+```
+
+- NoSuchBeanDefinitionException 해결하니 아놔 ㅡㅡ No suitable driver Exception이 뜸....
+    - 드라이버 다 잘 달아줬는데 인식을 못한다고??
+    - 어처구니 없게도 Driver를 아래 경로에 넣어주면 해결됨...
+```
+    "\tomcat-9.0.8\apache-tomcat-9.0.8\lib"
+```
+
 
 - - -
 ## 19.01.12 로그 남기기
