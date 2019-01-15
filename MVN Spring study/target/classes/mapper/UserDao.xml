@@ -16,4 +16,13 @@
 			ID = '${userId}'
 			AND PASS = '${userPwd}'
 	</select>
+	
+	<select id="checkId" parameterType="string" resultType="string">
+        SELECT 
+            ID
+        FROM
+            UserInfo
+        WHERE
+            ID = '${userId}'
+    </select>
 </mapper>

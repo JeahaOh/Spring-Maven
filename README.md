@@ -2,7 +2,44 @@
 Maven을 이용한 Spring Study
 
 - - -
+## 19.01.15 LOG
+일반적인 로그
+```
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-api</artifactId>
+    <version>${org.slf4j-version}</version>
+</dependency>
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>jcl-over-slf4j</artifactId>
+    <version>${org.slf4j-version}</version>
+    <scope>runtime</scope>
+</dependency>
+<dependency>
+    <groupId>ch.qos.logback</groupId>
+    <artifactId>logback-classic</artifactId>
+    <version>1.2.3</version>
+    <scope>runtime</scope>
+</dependency>
+```
+log4jdbc
+```
+<dependency>
+    <groupId>org.bgee.log4jdbc-log4j2</groupId>
+    <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+    <version>1.16</version>
+</dependency>
+```
+- logback.xml, log4jdbc.log4j2.properties 잡아주기
+- log4j.xml은 크게 쓸모 없음..
 
+- glogg
+    - 로그 보기를 도와주는 무료 tool.
+    - https://glogg.bonnefon.org/download.html
+
+
+- - -
 ## 19.01.14 로그인 하기
 - table     UserInfo
 - col       ID, PASS, NAME, INSDATE, USEYN
@@ -13,7 +50,6 @@ Maven을 이용한 Spring Study
 4. 로그인 링크 클릭시 DB에서 회원정보를 찾아서 비교 후, main페이지로 이동(main페이지는 현재 내용이 없어도 됨)
 5. 회원 가입 링크를 클릭시 join페이지로 이동(join 페이지는 현재 내용이 없어도 됨)
 
-**log_나오게_하기**
 
 - - -
 ## 19.01.12 - 14 DB연결과 Mybatis
