@@ -1,11 +1,12 @@
-<%@ page contentType="text/html; charset=utf-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="true"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<meta charset="UTF-8">
-	<title>Home</title>
+<meta charset="UTF-8">
+<title>Home</title>
 </head>
 <body>
 	<h1>Hello world!</h1>
@@ -15,9 +16,20 @@
 		<div>
 			<a href="memb/list">EMP List</a>
 		</div>
-		<div>
-			<a href="user/manage">Login</a>
-		</div>
+
+		<c:choose>
+			<c:when test="${not empty sessionScope.loginUser}">
+				<div>
+					<a href="user/logout">Logout</a>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div>
+					<a href="user/manage">Login</a>
+				</div>
+			</c:otherwise>
+		</c:choose>
+
 	</div>
 </body>
 </html>

@@ -41,12 +41,13 @@
 			alert("비밀번호를 입력하세요.");
 			$('#userPwd').focus();
 		}	else {
-			//	$('#userForm').attr('action', '${path}/spring/user/login')
-			//	$('#userForm').submit();
-			logIn({"userId": idVal, "userPwd": pwdVal});
+				$('#userForm').attr('action', '${path}/spring/user/login')
+				$('#userForm').submit();
+			//logIn({"userId": idVal, "userPwd": pwdVal});
 		}
 	});
 	
+	/*
 	function logIn(data) {
 		console.log(data);
 		
@@ -60,6 +61,7 @@
 		    }
 		});
 	}
+	*/
 	
 </script>
 </html>
