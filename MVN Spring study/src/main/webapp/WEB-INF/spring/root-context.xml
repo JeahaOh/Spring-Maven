@@ -12,16 +12,15 @@
 
 	<!-- 데이터베이스 설정값이 저장된 .properties 파일의 위치. -->
 	<!-- 빨간줄이 안 없어진다면 Namespaces에서 context를 확인할 것. -->
-	<!-- <context:property-placeholder location="classpath:db/mysql.properties" /> -->
-	<context:property-placeholder location="classpath:db/orcl.properties" />
+	<context:property-placeholder location="classpath:db/db.properties" />
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- common dbcp : 커넥션 풀 사용. -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-			<property name="driverClassName" value="${orcl.Driver}"></property> 
-			<property name="url" value="${orcl.url}"></property>
-			<property name="username" value="${orcl.username}"></property>
-			<property name="password" value="${orcl.password}"></property>
+			<property name="driverClassName" value="${db.driver}"></property> 
+			<property name="url" value="${db.url}"></property>
+			<property name="username" value="${db.username}"></property>
+			<property name="password" value="${db.password}"></property>
 	</bean>
 
 	<!-- SessionFactory 객체 생성 -->

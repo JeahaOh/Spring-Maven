@@ -25,4 +25,10 @@ public class UserServiceImpl implements UserService {
     }
     return false;
   }
+  
+  @Override
+  public Boolean signUp(User user) {
+    
+    return true;
+  }
 }

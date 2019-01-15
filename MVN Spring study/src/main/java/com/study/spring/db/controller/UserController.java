@@ -1,11 +1,13 @@
 package com.study.spring.db.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,24 +61,50 @@ public class UserController {
     return "redirect:/";
   }
   
-  @RequestMapping(value="signIn", method=RequestMethod.POST)
+  @RequestMapping(value="/signIn", method=RequestMethod.GET)
   public String signIn(String userId, String userPwd, HttpSession session) {
     logger.debug("/user/manage -->", session);
     System.out.printf("userId: %s\nuserPwd: %s", userId, userPwd);
     
-    
     return "join";
   }
   
-  
-  @RequestMapping(value="idCheck", method=RequestMethod.POST)
+  @RequestMapping(value="/idCheck", method=RequestMethod.POST)
   public @ResponseBody boolean idCheck(
         @RequestParam(value="userId", required=true) String userId,
-        HttpServletResponse res) {
+        HttpServletResponse res,
+        HttpServletRequest req) {
 
-    logger.debug("/user/idCheck -->", userId, res);
+    logger.debug("/user/idCheck -->", userId, req);
+    
     res.setContentType("application/json");
     
     return userService.checkId(userId);
+  }
+  
+  @PostMapping(value="/signUp")
+  public /*@ResponseBody boolean*/String signUp (
+      @RequestParam String userId,
+      @RequestParam String userPwd,
+      @RequestParam String name,
+      HttpServletRequest req,
+      HttpSession session) {
+    logger.debug("/user/idCheck -->", req);
+    
+    User newbie = new User();
+    newbie.setId(userId);
+    newbie.setPw(userPwd);
+    newbie.setName(name);
+    
+    userService.signUp(newbie);
+    session.setAttribute("newbie", newbie);
+    
+    System.out.printf("ID : %s \n PWD : %s \n name : $s",userId, userPwd, name);
+    return "redirect:/user/detail" /*true*/;
+  }
+  
+  @RequestMapping("/detail")
+  public String detail() {
+    return "detail";
   }
 }

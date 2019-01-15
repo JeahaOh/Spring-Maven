@@ -25,4 +25,11 @@ public class ErrController {
     res.setHeader("Refresh", "2;url=/spring/");
     return "logon";
   }
+  
+  @RequestMapping("/signUp")
+  public String signUpErr(HttpServletResponse res) {
+    logger.debug("---->>>>>>" + res);
+    res.setHeader("Refresh", "2;url=/spring/user/signIn");
+    return "signUpErr";
+  }
 }
