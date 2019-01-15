@@ -21,10 +21,8 @@ public class UserServiceImpl implements UserService {
   @Override
   public Boolean checkId(String userId) {
     if(userDao.checkId(userId) != null && userDao.checkId(userId) != "") {
-      System.out.println("true");
       return true;
     }
-    System.out.println("false");
     return false;
   }
 }

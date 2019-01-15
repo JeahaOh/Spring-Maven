@@ -38,6 +38,8 @@ log4jdbc
     - 로그 보기를 도와주는 무료 tool.
     - https://glogg.bonnefon.org/download.html
 
+- [project] - [properties] - ?
+
 
 - - -
 ## 19.01.14 로그인 하기

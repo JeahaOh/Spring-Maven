@@ -30,59 +30,56 @@
 	</div>
 </body>
 <script>
-	
 	$('#logIn').on('click', function() {
 		var idVal = $('#userId').val();
 		var pwdVal = $('#userPwd').val();
-		
-		if(idVal.length <= 1 || idVal == "") {
+
+		if (idVal.length <= 1 || idVal == "") {
 			alert("아이디를 입력하세요.");
 			$('#userId').focus();
-		}	else if (pwdVal.length <= 1 || pwdVal == "") {
+		} else if (pwdVal.length <= 1 || pwdVal == "") {
 			alert("비밀번호를 입력하세요.");
 			$('#userPwd').focus();
-		}	else {
-				$('#userForm').attr('action', '${path}/spring/user/login')
-				$('#userForm').submit();
+		} else {
+			$('#userForm').attr('action', '${path}/spring/user/login')
+			$('#userForm').submit();
 		}
 	});
-	
-	
+
 	$('#signIn').on('click', function() {
-        var idVal = $('#userId').val();
-        var pwdVal = $('#userPwd').val();
-        
-        if(idVal.length <= 1 || idVal == "") {
-            alert("아이디를 입력하세요.");
-            $('#userId').focus();
-        }   else if (pwdVal.length <= 1 || pwdVal == "") {
-            alert("비밀번호를 입력하세요.");
-            $('#userPwd').focus();
-        }   else if (idVal.length > 1 && idVal != "") {
-        	checkId(idVal);
-        }   else {
-               //$('#userForm').attr('action', '/spring/user/signIn')
-               //$('#userForm').submit();
-        }
-    });
-	
-	function checkId(data) {
-		console.log(data);
-		$.ajax('/spring/user/idCheck',{
-			method: "POST",
-			data: { "userId": data },
-			//headers:{ 'Content-Type': 'application/json' },
-			success: function(bool) {
-				console.log(bool);
+		var idVal = $('#userId').val();
+		var pwdVal = $('#userPwd').val();
+
+		if (idVal.length <= 1 || idVal == "") {
+			alert("아이디를 입력하세요.");
+			$('#userId').focus();
+		} else if (pwdVal.length <= 1 || pwdVal == "") {
+			alert("비밀번호를 입력하세요.");
+			$('#userPwd').focus();
+		} else if (idVal.length > 1 && idVal != "") {
+			checkId(idVal);
+		} else {
+			alert('알 수 없는 오류 발생!');
+		}
+	});
+
+	function checkId(userId) {
+		console.log(userId);
+		$.ajax('/spring/user/idCheck', {
+			method : "POST",
+			data : {
+				"userId" : userId
 			},
-			error: (xhr, status, msg) => {
-			      console.log(xhr);
-			      console.log(status);
-			      console.log(msg);
+			success : function(data) {
+				if (data) {
+					$('#userId').focus();
+					alert('사용할 수 없는 아이디 입니다.');
+				} else {
+					$('#userForm').attr('action', '/spring/user/signIn')
+					$('#userForm').submit();
+				}
 			}
 		})
 	}
-    
-	
 </script>
 </html>
