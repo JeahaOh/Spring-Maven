@@ -1,6 +1,8 @@
 package com.study.spring.db.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -65,8 +67,6 @@ public class UserController {
   @RequestMapping(value="/signIn", method=RequestMethod.GET)
   public String signIn(HttpSession session) {
     logger.debug("/user/manage -->", session);
-    
-    
     return "join";
   }
   
@@ -102,7 +102,7 @@ public class UserController {
     
     System.out.printf(newbie.toString());
     
-    return "redirect:/user/detail" /*true*/;
+    return "redirect:/user/detail";
   }
   
   @RequestMapping("/detail")
@@ -110,14 +110,41 @@ public class UserController {
     logger.debug("/user/detail -->", session);
     User user = (User)session.getAttribute("newbie");
     System.out.println("session newbie : " + user.toString());
-    return "detail";
+    return "/init";
   }
   
-  @RequestMapping("/update")
-  public String updateDetail(
-      HttpSession session, HttpServletRequest req, HttpServletResponse res) {
-    logger.debug("/user/update.session -->", session);
-    logger.debug("/user/update.res,req -->", res, req);
-    return "/";
+  @PostMapping("/init")
+  public String initDetail(
+      HttpSession session, HttpServletRequest req, HttpServletResponse res,
+      String id,
+      String DELIVNAME,
+      String RELCD,
+      int ADDRCD,
+      String ADDRNAME,
+      String MOBILETELNO,
+      String HOMETELNO,
+      String USEYN) {
+    Map<String, Object> info = new HashMap<>();
+    logger.debug("/user/init.session -->", session);
+    logger.debug("/user/init.res,req -->", res, req);
+    logger.debug("/user/init.info -->", info);
+    
+    info.put("ID", id);
+    info.put("DELIVNAME", DELIVNAME);
+    info.put("RELCD", RELCD);
+    info.put("ADDRCD", ADDRCD);
+    info.put("ADDRNAME", ADDRNAME);
+    info.put("MOBILETELNO", MOBILETELNO);
+    info.put("HOMETELNO", HOMETELNO);
+    if (USEYN == "on") {
+      USEYN = "Y";
+    }  else {
+      USEYN = "N";
+    }
+    info.put("USEYN", USEYN);
+    
+    userService.init(info);
+    
+    return "redirect:/user/signIn";
   }
 }

@@ -1,5 +1,6 @@
 package com.study.spring.db.service.impl;
 
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,10 @@ public class UserServiceImpl implements UserService {
   @Override
   public Boolean signUp(User user) {
     return userDao.signUp(user);
+  }
+  
+  @Override
+  public Boolean init(Map<String, Object> info) {
+    return userDao.init(info);
   }
 }

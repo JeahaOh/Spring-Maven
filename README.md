@@ -18,6 +18,19 @@ Maven을 이용한 Spring Study
 4. 사용여부는 기본 체크된 상태.
 5. userinfodetailcd 필드는 max증가 값 적용.
 
+
+ - http://webskills.kr/archives/310
+ - http://mainia.tistory.com/4185
+
+- 어?
+    - QuerBox에서 작업하다 WEB test시 WEB에서 작업을 못하는 경우가 있음.
+    - deadlock 배웠던거잖아?
+    - 이럴땐 QueryBox에서 commit;
+
+- Query
+    - UserDao.xml -> init
+    - (select concat('U',lpad(substr(max(USERINFODETAILCD),2) + 1, 8, '0'))
+
 - - -
 ## 19.01.15 - 16 회원가입
 ```

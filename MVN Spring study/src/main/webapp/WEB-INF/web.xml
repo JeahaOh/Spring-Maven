@@ -68,7 +68,7 @@
 	<session-config>
 		<session-timeout>360</session-timeout>
 	</session-config>
-	<!-- 세션에 대해 logger를 잡을수 있지만 귀찮으니 다음에 구현해 보도록 하자
+	<!-- 세션에 대해 logger를 잡을수 있지만 시간이 많지 않으니 다음에 구현해 보도록 하자
 	       참고 : http://blog.whitelife.co.kr/221
 	 -->
 

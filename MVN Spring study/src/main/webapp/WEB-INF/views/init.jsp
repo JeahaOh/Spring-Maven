@@ -17,19 +17,21 @@ table {
 </style>
 </head>
 <body>
-    <form id="detail" action="" method="post">
+    <form id="init" action="" method="post">
+    
+    <input type="hidden" id="id" name="id" value="${sessionScope.newbie.id}">
 		<table>
 			<tr>
 				<th>상세정보</th>
 			</tr>
 			<tr>
 				<td><b>성 명 </b>:</td>
-				<td><input type="text" id="DELIVNAME" name="DELIVNAME" placeholder="성명을 입력하세요."></td>
+				<td><input type="text" id="DELIVNAME" name="DELIVNAME" placeholder="성명을 입력하세요." required autofocus></td>
 			</tr>
 			<tr>
 				<td><b>관 계 </b>:</td>
 				<td>
-					<select id="RECD" name="RECD" >
+					<select id="RELCD" name="RELCD" >
 					    <option value="C0021">본인</option>
 					    <option value="C0022">부모</option>
 					    <option value="C0023">형제</option>
@@ -39,11 +41,11 @@ table {
 			</tr>
 			<tr>
 				<td><b>우편번호 </b>:</td>
-				<td><input type="text" id="ADDRCD" name="ADDRCD" placeholder="우편번호"></td>
+				<td><input type="number" id="ADDRCD" name="ADDRCD" min="1" max="99999" placeholder="우편번호" required></td>
 			</tr>
 			<tr>
 				<td><b>주 소 </b>:</td>
-				<td><input type="text" id="ADDRNAME" name="ADDRNAME" placeholder="주소를 입력하세요"></td>
+				<td><input type="text" id="ADDRNAME" name="ADDRNAME" placeholder="주소를 입력하세요" required></td>
 			</tr>
 			<tr>
 				<td>휴대전화 :</td>
@@ -60,20 +62,24 @@ table {
 		</table>
 		<button type="button" onClick="save()">저장</button>
 	</form>
-
-
-
 </body>
 <script>
     function save(){
+    	var id = $('#id').val();
     	var $DELIVNAME = $('#DELIVNAME').val();
-    	var $RECD = $('#RECD').val();
+    	var $RELCD = $('#RELCD').val();
     	var $ADDRCD = $('#ADDRCD').val();
     	var $ADDRNAME = $('#ADDRNAME').val();
     	var $MOBILETELNO = $('#MOBILETELNO').val();
     	var $HOMETELNO = $('#HOMETELNO').val();
-    	var $USEYN = $('#USEYN').val();
-    	console.log($DELIVNAME + ', ' + $RECD + ', ' + $ADDRCD + ', ' + $ADDRNAME + ', ' + $MOBILETELNO + ', ' + $HOMETELNO + ', ' + $USEYN);
+/*     	var USEYN = '';
+    	
+    	if($("#USEYN").is(":checked")){
+    		USEYN = 'Y';
+    	}  else {
+    		USEYN = 'N';
+    	} */
+    	
     	
     	if($DELIVNAME === null || $DELIVNAME === ''){
     		$('#DELIVNAME').focus();
@@ -90,8 +96,17 @@ table {
             alert('주소는 필수 요소 입니다.');
             return;
         }
-    	// 전화번호 둘중 하나는 필수
+    	if(($MOBILETELNO === null || $MOBILETELNO === '') &&
+    			($HOMETELNO === null || $HOMETELNO === '')){
+            $('#MOBILETELNO').focus();
+            alert('전화번호중 한가지는 필수 요소 입니다.');
+            return;
+        }
     	
+    	console.log(id + $DELIVNAME + ', ' + $RELCD + ', ' + $ADDRCD + ', ' + $ADDRNAME + ', ' + $MOBILETELNO + ', ' + $HOMETELNO + ', ' + USEYN);
+    	
+    	$('#init').attr('action', '/spring/user/init');
+    	$('#init').submit();
     	
     	
     }

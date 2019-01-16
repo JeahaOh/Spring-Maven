@@ -39,4 +39,12 @@
         INSERT INTO UserInfo (ID, PASS, NAME, INSDATE, USEYN)
         VALUES('${id}', '${pw}', '${name}', SYSDATE, 'Y')
     </insert>
+    
+    <insert id="init" parameterType="map">
+        INSERT INTO UserInfoDetail
+            (ID, USERINFODETAILCD, RELCD, ADDRCD, ADDRNAME, MOBILETELNO, HOMETELNO, USEYN, DELIVNAME)
+        VALUES ('${ID}'
+            , (select concat('U',lpad(substr(max(USERINFODETAILCD),2) + 1, 8, '0'))  from USERINFODETAIL)
+            , '${RELCD}', ${ADDRCD}, '${ADDRNAME}', '${MOBILETELNO}', '${HOMETELNO}', '${USEYN}', '${DELIVNAME}')
+    </insert>
 </mapper>

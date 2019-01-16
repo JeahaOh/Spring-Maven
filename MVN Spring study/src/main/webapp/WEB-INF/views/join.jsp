@@ -83,6 +83,11 @@
         if(id !== idChck){
         	alert("아이디 중복 확인을 해 주세요.");
         }
+        if(id.length < 1 || id.length >= 20) {
+            $('#idCheck').focus();
+            alert('아이디는 20자를 넘을 수 없습니다.');
+            return;
+        }
         
         if(pwdVal.length < 5 || pwdVal.length >= 10) {
         	$('#userPwd').focus();
@@ -96,7 +101,7 @@
         }
         
         
-        $('#userForm').attr('action', '/spring/user/signUp')
+        $('#userForm').attr('action', '/spring/user/signUp');
         console.log(id);
         console.log(pwdVal + "\n" + pwdChck);
         console.log($('#name').val());
