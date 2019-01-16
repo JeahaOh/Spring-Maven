@@ -1,5 +1,6 @@
 package com.study.spring.db.controller;
 
+import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -62,9 +63,9 @@ public class UserController {
   }
   
   @RequestMapping(value="/signIn", method=RequestMethod.GET)
-  public String signIn(String userId, String userPwd, HttpSession session) {
+  public String signIn(HttpSession session) {
     logger.debug("/user/manage -->", session);
-    System.out.printf("userId: %s\nuserPwd: %s", userId, userPwd);
+    
     
     return "join";
   }
@@ -83,12 +84,12 @@ public class UserController {
   }
   
   @PostMapping(value="/signUp")
-  public /*@ResponseBody boolean*/String signUp (
+  public String signUp (
       @RequestParam String userId,
       @RequestParam String userPwd,
       @RequestParam String name,
       HttpServletRequest req,
-      HttpSession session) {
+      HttpSession session) throws UnsupportedEncodingException {
     logger.debug("/user/idCheck -->", req);
     
     User newbie = new User();
@@ -99,12 +100,24 @@ public class UserController {
     userService.signUp(newbie);
     session.setAttribute("newbie", newbie);
     
-    System.out.printf("ID : %s \n PWD : %s \n name : $s",userId, userPwd, name);
+    System.out.printf(newbie.toString());
+    
     return "redirect:/user/detail" /*true*/;
   }
   
   @RequestMapping("/detail")
-  public String detail() {
+  public String detail(HttpSession session) {
+    logger.debug("/user/detail -->", session);
+    User user = (User)session.getAttribute("newbie");
+    System.out.println("session newbie : " + user.toString());
     return "detail";
+  }
+  
+  @RequestMapping("/update")
+  public String updateDetail(
+      HttpSession session, HttpServletRequest req, HttpServletResponse res) {
+    logger.debug("/user/update.session -->", session);
+    logger.debug("/user/update.res,req -->", res, req);
+    return "/";
   }
 }

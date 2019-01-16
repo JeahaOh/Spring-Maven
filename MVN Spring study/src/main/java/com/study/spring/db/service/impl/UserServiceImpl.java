@@ -28,7 +28,6 @@ public class UserServiceImpl implements UserService {
   
   @Override
   public Boolean signUp(User user) {
-    
-    return true;
+    return userDao.signUp(user);
   }
 }

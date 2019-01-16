@@ -56,4 +56,11 @@ public class User {
     public void setUseyn(String useyn) {
         this.useyn = useyn;
     }
+    @Override
+    public String toString() {
+      return "User [id=" + id + ", pw=" + pw + ", name=" + name + ", insdate=" + insdate
+          + ", useyn=" + useyn + "]";
+    }
+    
+    
 }

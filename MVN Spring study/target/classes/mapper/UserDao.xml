@@ -3,6 +3,15 @@
 	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.study.spring.db.dao.UserDao">
+
+    <resultMap type="com.study.spring.db.domain.User" id="userMap">
+        <id     column="ID"      property="id"/>
+        <result column="PASS"    property="pw"/>
+        <result column="NAME"    property="name"/>
+        <result column="INSDATE" property="insdate"/>
+        <result column="USEYN"    property="useyn"/>
+    </resultMap>
+
 	<select id="login" parameterType="string" resultType="com.study.spring.db.domain.User">
 		SELECT 
 			ID,
@@ -25,4 +34,9 @@
         WHERE
             ID = '${userId}'
     </select>
+    
+    <insert id="signUp" parameterType="com.study.spring.db.domain.User">
+        INSERT INTO UserInfo (ID, PASS, NAME, INSDATE, USEYN)
+        VALUES('${id}', '${pw}', '${name}', SYSDATE, 'Y')
+    </insert>
 </mapper>

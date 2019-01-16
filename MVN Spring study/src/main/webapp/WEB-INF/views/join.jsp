@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Login</title>
+<title>JOIN</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
@@ -66,9 +66,9 @@
                     alert('사용할 수 없는 아이디 입니다.');
                     return;
                 } else {
+                	$('#userId').val(idVal);
                 	alert('아이디는 ' + idVal + '입니다.');
                 	$('#userPwd').focus();
-                	$('#userId').val(idVal);
                 }
             }
         });
@@ -95,12 +95,12 @@
           return;
         }
         
-        /*
+        
+        $('#userForm').attr('action', '/spring/user/signUp')
         console.log(id);
         console.log(pwdVal + "\n" + pwdChck);
         console.log($('#name').val());
-        */
-        $('#userForm').attr('action', '/spring/user/signUp')
+        
         $('#userForm').submit();
     });
     

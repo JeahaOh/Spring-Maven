@@ -6,4 +6,5 @@ import com.study.spring.db.domain.User;
 public interface UserDao {
   User login(@Param("userId") String userId, @Param("userPwd")String userPwd);
   String checkId(@Param("userId") String userId);
+  Boolean signUp(/*@Param("User")*/ User user);
 }

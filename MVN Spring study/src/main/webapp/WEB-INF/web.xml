@@ -3,7 +3,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+	<!-- The definition of the Root Spring Container shared by all Servlets 
+		and Filters -->
 	<!-- 스프링의 환경 설정 파일 로딩. -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -23,7 +24,8 @@
 		<!-- 스프링에 내장된 DispatcherServlet 클래스를 디폴트 서블릿으로 설정. -->
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<!-- 모든 서블릿 요청은 DispatcherServlet에서 처리됨. -->
-		<!-- DispatcherServlet : Model, View, Controller를 조합하여 브라우져로 출력하는 역할을 하는 클래스. -->
+		<!-- DispatcherServlet : Model, View, Controller를 조합하여 브라우져로 출력하는 역할을 하는 
+			클래스. -->
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
@@ -61,5 +63,13 @@
 	<welcome-file-list>
 		<welcome-file>home.jsp</welcome-file>
 	</welcome-file-list>
+    
+    <!-- 세션 만료시간 설정 (6시간) -->
+	<session-config>
+		<session-timeout>360</session-timeout>
+	</session-config>
+	<!-- 세션에 대해 logger를 잡을수 있지만 귀찮으니 다음에 구현해 보도록 하자
+	       참고 : http://blog.whitelife.co.kr/221
+	 -->
 
 </web-app>
