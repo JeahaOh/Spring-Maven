@@ -1,5 +1,30 @@
 # Spring-Maven
 Maven을 이용한 Spring Study
+
+- - -
+## 19.01.16 코드관리
+```
+전체리스트
+코드번호 | 코드레벨 | 상위코드 | 코드이름 | 사용여부
+C0001   | 1        | C0000  |  전자제품 |   V
+```
+```
+코드내용
+코드번호 input
+코드레벨 input
+상위코드 input
+코드이름 input
+사용여부 checkbox
+
+추가 | 수정 | 저장
+```
+1. 전체 리스트는 계층쿼리로 할 것.
+2. 전체 리스트중에서 하나를 클릭하면 아래에 내용을 표시할 것.
+3. 수정을 클릭하면 코드번호를 제외한 다른 부분은 수정할 수 있게 할것.
+4. 추가를 클릭하면 코드번호를 제외한 다른 부분을 입력할 수 있게 할것.
+5. 저장을 클릭하면 수정은 update, 추가는 insert할 것.
+6. 코드번호 max 증가값 적용할 것.
+
 - - -
 ## 19.01.16 회원가입 상세
 ```
@@ -30,6 +55,13 @@ Maven을 이용한 Spring Study
 - Query
     - UserDao.xml -> init
     - (select concat('U',lpad(substr(max(USERINFODETAILCD),2) + 1, 8, '0'))
+
+- Mybatis #과 $?
+    - http://sourcestudy.tistory.com/470
+
+- 전화번호 유효성 검사
+    - 전화번호 유효성 검사를 하고 싶었으나 시간상 진행할 수 없었음.
+    - http://toyuq.tistory.com/204
 
 - - -
 ## 19.01.15 - 16 회원가입
