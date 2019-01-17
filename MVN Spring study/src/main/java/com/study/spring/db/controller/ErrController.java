@@ -1,5 +1,6 @@
 package com.study.spring.db.controller;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,4 +33,12 @@ public class ErrController {
     res.setHeader("Refresh", "2;url=/spring/user/signIn");
     return "signUpErr";
   }
+  
+  @RequestMapping("/codeErr")
+  public String codeErr(HttpServletResponse res, HttpServlet servlet) {
+    logger.debug("---->>>>>>" + res);
+    res.setHeader("Refresh", "2;url=/spring/code/manage");
+    return "codeErr";
+  }
+  
 }

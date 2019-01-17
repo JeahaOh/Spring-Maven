@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.study.spring.db.dao.CodeDao">
+
+    <resultMap type="com.study.spring.db.domain.Code" id="codeMap">
+        <id     column="CDNO"       property="CDNO"/>
+        <result column="CDLVL"      property="CDLVL"/>
+        <result column="UPCD"       property="UPCD"/>
+        <result column="CDNAME"     property="CDNAME"/>
+        <result column="INSUSER"    property="INSUSER"/>
+        <result column="INSDATE"    property="INSDATE"/>
+        <result column="USEYN"      property="USEYN"/>
+    </resultMap>
+    
+    <select id="showAll" resultType="map" > <!-- resultMap="codeMap"  resultType="com.study.spring.db.domain.Code" --> 
+        SELECT CDNO
+                , CDLVL
+                , UPCD
+                , CDNAME
+                , INSUSER
+                , INSDATE
+                , USEYN
+        FROM    CODEMNG
+        ORDER BY    CDNO ASC
+    </select>
+    
+    <update id="update" parameterType="map">
+        UPDATE CODEMNG
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="CDLVL != NULL">CDLVL = #{CDLVL},</if>
+            <if test="UPCD != NULL">UPCD = #{UPCD},</if>
+            <if test="CDNAME != NULL">CDNAME = #{CDNAME},</if>
+            <if test="USEYN != USEYN">USEYN = #{CDNAME},</if>
+        </trim>
+        WHERE
+            CDNO = #{CDNO}
+    </update>
+    
+</mapper>
