@@ -93,7 +93,7 @@ td {
             <tr class="${Code.CDNO}" 
             onclick="select(`${Code.CDNO}`, `${Code.CDLVL}`, `${Code.UPCD}`, `${Code.CDNAME}`, `${Code.USEYN}`)">
               <td class="CDNO">${Code.CDNO}</td>
-              <td class="CDLVL">${Code.CDLVL}</td>
+              <td class="CDLVL" style="text-align:none">${Code.CDLVL}</td>
               <td class="UPCD">${Code.UPCD}</td>
               <td class="CDNAME">${Code.CDNAME}</td>
               <td class="checkbox"><c:choose>
@@ -179,7 +179,6 @@ td {
 </body>
 <script>
   function select(cdno, cdlvl, upcd, cdname, useyn) {
-    console.log(cdno, cdlvl, upcd, cdname, useyn);
     $('#CDNO').val(cdno);
     $('#CDLVL').val(cdlvl);
     $('#UPCD').val(upcd);

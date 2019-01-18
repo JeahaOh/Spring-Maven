@@ -30,6 +30,11 @@ C0001   | 1        | C0000  |  전자제품 |   V
 - http://all-record.tistory.com/172
 - http://new93helloworld.tistory.com/135
 
+
+### 계층쿼리?
+- 조직도로 출력 할 수 있게 해주는것.
+- https://m.blog.naver.com/javaking75/220010288704
+
 - - -
 ## 19.01.16 회원가입 상세
 ```

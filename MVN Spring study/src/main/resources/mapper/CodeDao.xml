@@ -14,22 +14,23 @@
         <result column="USEYN"      property="USEYN"/>
     </resultMap>
     
-    <select id="showAll" resultType="map" > <!-- resultMap="codeMap"  resultType="com.study.spring.db.domain.Code" --> 
-        SELECT CDNO
+    <select id="showAll" resultType="map" >
+        SELECT CDNO 
                 , CDLVL
                 , UPCD
-                , CDNAME
+                , LPAD(' ', 2 * (LEVEL - 1)) || CDNAME as CDNAME
                 , INSUSER
                 , INSDATE
                 , USEYN
         FROM    CODEMNG
-        ORDER BY    CDNO ASC
+        START WITH UPCD='C0000'
+        CONNECT BY PRIOR CDNO = UPCD
     </select>
     
     <insert id="insert" parameterType="string">
         INSERT INTO CODEMNG (CDNO, CDLVL, UPCD, CDNAME, INSUSER, INSDATE, USEYN)
         VALUES (
-            (select concat('C',lpad(substr(max(CDNO),2)+1,4,'0')) from CODEMNG),
+            (SELECT CONCAT('C', LPAD(SUBSTR(MAX(CDNO), 2) + 1, 4, '0')) FROM CODEMNG),
              ${CDLVL}, '${UPCD}', '${CDNAME}', '${INSUSER}', SYSDATE, '${USEYN}')
     </insert>
     

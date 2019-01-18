@@ -1,16 +1,8 @@
---Database Type    :Oracle
---Schema           :schema
---Create date      :Fri Jan 18 10:18:46 KST 2019
---Tool version     :3.3.0.1
-
-
-
-DROP TABLE EXAM_MANAGER.DEPT CASCADE CONSTRAINTS PURGE;
-
-
---
---DEPT   (TABLE)
---
+/*---------------------------------------------
+-- 오브젝트명: EXAM_MANAGER.DEPT
+-- 생성일자 : 2018-06-27 17:39:26.0
+-- 상태: VALID
+---------------------------------------------*/
 CREATE TABLE EXAM_MANAGER.DEPT(
   LOC VARCHAR2(13 BYTE),
   DEPTNO NUMBER(2,0),
@@ -29,5 +21,12 @@ TABLESPACE TS_EXAM_MANAGER
   BUFFER_POOL DEFAULT
  ) MONITORING;
 
-COMMENT ON TABLE EXAM_MANAGER.DEPT IS '�μ�';
-COMMENT ON COLUMN EXAM_MANAGER.DEPT.LOC IS '��ġ';
+COMMENT ON TABLE EXAM_MANAGER.DEPT IS '부서';
+
+COMMENT ON COLUMN EXAM_MANAGER.DEPT.LOC IS '위치';
+
+COMMENT ON COLUMN EXAM_MANAGER.DEPT.DEPTNO IS '부서코드';
+
+COMMENT ON COLUMN EXAM_MANAGER.DEPT.DNAME IS '부서명';
+
+ALTER TABLE EXAM_MANAGER.DEPT ADD CONSTRAINT PK_DEPT PRIMARY KEY (DEPTNO);
