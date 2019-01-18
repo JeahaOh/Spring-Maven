@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import com.study.spring.db.domain.Code;
 import com.study.spring.db.service.CodeService;
 
@@ -37,19 +38,22 @@ public class CodeController {
   
   @PostMapping("/update")
   public String update(
-      HttpServletRequest req
-      //String CDNO, int CDLVL, String UPCD, String CDNAME, String USEYN
+      HttpServletRequest req,
+      @RequestParam String CDNO,
+      @RequestParam Integer CDLVL,
+      @RequestParam String UPCD,
+      @RequestParam String CDNAME,
+      @RequestParam String USEYN
       ) {
-   // System.out.println(CDNO + "\n" + CDLVL + "\n" +  UPCD + "\n" + CDNAME + "\n" + USEYN);
-    System.out.println(req.toString());
+    System.out.println(CDNO + "\n" + CDLVL + "\n" +  UPCD + "\n" + CDNAME + "\n" + USEYN);
     logger.debug("/code/update -->", req);
     
     Code code = new Code();
-//    code.setCDNO(CDNO);
-//    code.setCDLVL(CDLVL);
-//    code.setUPCD(UPCD);
-//    code.setCDNAME(CDNAME);
-//    code.setUSEYN(USEYN);
+    code.setCDNO(CDNO);
+    code.setCDLVL(CDLVL);
+    code.setUPCD(UPCD);
+    code.setCDNAME(CDNAME);
+    code.setUSEYN(USEYN);
     
     System.out.println(code);
     /*

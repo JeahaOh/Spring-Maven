@@ -83,7 +83,7 @@ public class UserController {
     return userService.checkId(userId);
   }
   
-  @PostMapping(value="/signUp")
+  @PostMapping("/signUp")
   public String signUp (
       @RequestParam String userId,
       @RequestParam String userPwd,

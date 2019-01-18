@@ -129,23 +129,23 @@ td {
             <tbody>
               <tr>
                 <td>코드번호:</td>
-                <td colspan="2"><input type="text" id="CDNO" disabled></td>
+                <td colspan="2"><input type="text" id="CDNO" name="CDNO" disabled></td>
               </tr>
               <tr>
                 <td>코드레벨</td>
-                <td colspan="2"><input type="number" id="CDLVL" min="0" max="10" disabled></td>
+                <td colspan="2"><input type="number" id="CDLVL" name="CDLVL" min="0" max="10" disabled></td>
               </tr>
               <tr>
                 <td>상위코드:</td>
-                <td colspan="2"><input type="text" id="UPCD" pattern="C[0-9]{4}" disabled></td>
+                <td colspan="2"><input type="text" id="UPCD" name="UPCD" pattern="C[0-9]{4}" disabled></td>
               </tr>
               <tr>
                 <td>코드이름</td>
-                <td colspan="2"><input type="text" id="CDNAME" disabled></td>
+                <td colspan="2"><input type="text" id="CDNAME" name="CDNAME" disabled></td>
               </tr>
               <tr>
                 <td>사용여부</td>
-                <td colspan="2"><input type="checkbox" id="USEYN" disabled></td>
+                <td colspan="2"><input type="checkbox" id="USEYN" name="USEYN" disabled></td>
               </tr>
             </tbody>
             <tfoot>
@@ -213,12 +213,8 @@ td {
   
   $('#save').on("click", function() {
 	  alert(
-			  $('#CDNO').val(),
-			  $('#CDLVL').val(),
-			  $('#UPCD').val(),
-			  $('#CDNAME').val(),
-			  $('#USEYN').val(),
-			  );
+			  $('#CDNO').val(),$('#CDLVL').val(),$('#UPCD').val(),
+			  $('#CDNAME').val(),$('#USEYN').val());
     
     $('#code').submit();
   });

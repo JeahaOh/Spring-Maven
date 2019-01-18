@@ -1,0 +1,22 @@
+--Database Type    :Oracle
+--Schema           :schema
+--Create date      :Fri Jan 18 10:18:47 KST 2019
+--Tool version     :3.3.0.1
+
+
+
+DROP SEQUENCE EXAM_MANAGER.USERSEQ;
+
+
+--
+--USERSEQ   (SEQUENCE)
+--
+CREATE SEQUENCE EXAM_MANAGER.USERSEQ
+ START WITH 57
+ INCREMENT BY 1
+ MINVALUE 1
+ MAXVALUE 10000
+ NOCYCLE
+ CACHE 20
+ NOORDER
+;
