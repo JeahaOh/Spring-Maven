@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.study.spring.db.domain.Code;
+import com.study.spring.db.domain.User;
 import com.study.spring.db.service.CodeService;
 
 @Controller
@@ -31,9 +32,34 @@ public class CodeController {
   }
   
   @PostMapping("/add")
-  public String add() {
+  public String add(
+      HttpServletRequest req,
+      HttpSession session,
+      @RequestParam Integer CDLVL,
+      @RequestParam String UPCD,
+      @RequestParam String CDNAME,
+      String USEYN) {
+    logger.debug("/code/insert -->", req);
+    User loginUser = (User) session.getAttribute("loginUser");
+    if(loginUser == null) {
+      loginUser = new User();
+    }
+
+    Code code = new Code();
+    code.setCDLVL(CDLVL);
+    code.setUPCD(UPCD);
+    code.setCDNAME(CDNAME);
+    code.setINSUSER(loginUser.getId());
+    if(USEYN == null) {
+      USEYN = "N";
+    }
+    code.setUSEYN(USEYN);
     
-    return "redirect:/spring/code/manage";
+    System.out.println(code);
+    if(!codeService.insert(code)) {
+      return "redirect:/err/codeErr";
+    }
+    return "redirect:/code/manage";
   }
   
   @PostMapping("/update")
@@ -43,24 +69,23 @@ public class CodeController {
       @RequestParam Integer CDLVL,
       @RequestParam String UPCD,
       @RequestParam String CDNAME,
-      @RequestParam String USEYN
+      String USEYN
       ) {
-    System.out.println(CDNO + "\n" + CDLVL + "\n" +  UPCD + "\n" + CDNAME + "\n" + USEYN);
     logger.debug("/code/update -->", req);
-    
     Code code = new Code();
     code.setCDNO(CDNO);
     code.setCDLVL(CDLVL);
     code.setUPCD(UPCD);
     code.setCDNAME(CDNAME);
+    if(USEYN == null) {
+      USEYN = "N";
+    }
     code.setUSEYN(USEYN);
     
     System.out.println(code);
-    /*
     if(!codeService.update(code)) {
       return "redirect:/spring/err/codeErr";
     }
-    */
     return "redirect:/code/manage";
   }
 }

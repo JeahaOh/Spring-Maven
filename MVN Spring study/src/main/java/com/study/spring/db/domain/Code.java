@@ -47,15 +47,18 @@ public class Code {
     CDNAME = cDNAME;
   }
   public String getINSUSER() {
+      if(INSUSER == null) { return "visitor"; }
     return INSUSER;
   }
   public void setINSUSER(String iNSUSER) {
     INSUSER = iNSUSER;
   }
   public String getINSDATE() {
+    if(INSDATE == null) { return ""; }
     return INSDATE;
   }
   public void setINSDATE(String iNSDATE) {
+    if(INSDATE == null) { return; }
     INSDATE = iNSDATE;
   }
   public String getUSEYN() {

@@ -5,6 +5,6 @@ import com.study.spring.db.domain.Code;
 
 public interface CodeService {
   List<Code> showAll();
-  
+  public Boolean insert(Code code);
   public Boolean update(Code code);
 }

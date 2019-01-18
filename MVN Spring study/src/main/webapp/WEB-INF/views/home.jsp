@@ -22,6 +22,9 @@
 				<div>
 					<a href="user/logout">Logout</a>
 				</div>
+				<div>
+                    <a href="code/manage">Code</a>
+                </div>
 			</c:when>
 			<c:otherwise>
 				<div>

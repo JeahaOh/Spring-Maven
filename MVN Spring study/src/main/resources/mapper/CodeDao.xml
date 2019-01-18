@@ -26,13 +26,20 @@
         ORDER BY    CDNO ASC
     </select>
     
-    <update id="update" parameterType="map">
+    <insert id="insert" parameterType="string">
+        INSERT INTO CODEMNG (CDNO, CDLVL, UPCD, CDNAME, INSUSER, INSDATE, USEYN)
+        VALUES (
+            (select concat('C',lpad(substr(max(CDNO),2)+1,4,'0')) from CODEMNG),
+             ${CDLVL}, '${UPCD}', '${CDNAME}', '${INSUSER}', SYSDATE, '${USEYN}')
+    </insert>
+    
+    <update id="update" parameterType="string">
         UPDATE CODEMNG
         <trim prefix="SET" suffixOverrides=",">
-            <if test="CDLVL != NULL">CDLVL = #{CDLVL},</if>
-            <if test="UPCD != NULL">UPCD = #{UPCD},</if>
-            <if test="CDNAME != NULL">CDNAME = #{CDNAME},</if>
-            <if test="USEYN != USEYN">USEYN = #{CDNAME},</if>
+            <if test="CDLVL != null and CDLVL != '' ">  CDLVL = #{CDLVL},</if>
+            <if test="UPCD != null and UPCD != ''">     UPCD = #{UPCD},</if>
+            <if test="CDNAME != null and CDNAME != '' ">CDNAME = #{CDNAME},</if>
+            <if test="USEYN != null and USEYN != '' ">  USEYN = #{USEYN},</if>
         </trim>
         WHERE
             CDNO = #{CDNO}

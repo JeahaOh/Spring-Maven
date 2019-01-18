@@ -5,5 +5,6 @@ import com.study.spring.db.domain.Code;
 
 public interface CodeDao {
   List<Code> showAll();
+  Boolean insert(Code code);
   Boolean update(Code code);
 }

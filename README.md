@@ -28,6 +28,7 @@ C0001   | 1        | C0000  |  전자제품 |   V
 
 - http://w2ui.com/web/
 - http://all-record.tistory.com/172
+- http://new93helloworld.tistory.com/135
 
 - - -
 ## 19.01.16 회원가입 상세

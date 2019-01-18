@@ -90,8 +90,8 @@ td {
         </thead>
         <tbody id="lowList">
           <c:forEach items="${codeList}" var="Code">
-            <tr class="${Code.CDNO}"
-                onclick="select(`${Code.CDNO}`, `${Code.CDLVL}`, `${Code.UPCD}`, `${Code.CDNAME}`, `${Code.USEYN}`)">
+            <tr class="${Code.CDNO}" 
+            onclick="select(`${Code.CDNO}`, `${Code.CDLVL}`, `${Code.UPCD}`, `${Code.CDNAME}`, `${Code.USEYN}`)">
               <td class="CDNO">${Code.CDNO}</td>
               <td class="CDLVL">${Code.CDLVL}</td>
               <td class="UPCD">${Code.UPCD}</td>
@@ -120,6 +120,7 @@ td {
       <p>코드 상세</p>
       <div class="codeDetail">
         <form id="code" method="post">
+          <input type="hidden" id="loginUser" name="loginUser" value="${sessionScope.loginUser.id}">
           <table class="table">
             <thead>
               <tr>
@@ -133,19 +134,27 @@ td {
               </tr>
               <tr>
                 <td>코드레벨</td>
-                <td colspan="2"><input type="number" id="CDLVL" name="CDLVL" min="0" max="10" disabled></td>
+                <td colspan="2">
+                    <input type="number" id="CDLVL" name="CDLVL" min="0" max="10" disabled required>
+                </td>
               </tr>
               <tr>
                 <td>상위코드:</td>
-                <td colspan="2"><input type="text" id="UPCD" name="UPCD" pattern="C[0-9]{4}" disabled></td>
+                <td colspan="2">
+                    <input type="text" id="UPCD" name="UPCD" pattern="C[0-9]{4}" disabled required>
+                </td>
               </tr>
               <tr>
                 <td>코드이름</td>
-                <td colspan="2"><input type="text" id="CDNAME" name="CDNAME" disabled></td>
+                <td colspan="2">
+                    <input type="text" id="CDNAME" name="CDNAME" disabled required>
+                </td>
               </tr>
               <tr>
                 <td>사용여부</td>
-                <td colspan="2"><input type="checkbox" id="USEYN" name="USEYN" disabled></td>
+                <td colspan="2">
+                    <input type="checkbox" id="USEYN" name="USEYN" disabled required>
+                </td>
               </tr>
             </tbody>
             <tfoot>
@@ -189,15 +198,20 @@ td {
     $('#code').attr('action', '/spring/code/add');
     $('#code').removeClass('update');
     $('#code').addClass('add');
-    $('#CDNO').attr('disabled');
-    $('#CDLVL').val('');
-    $('#CDLVL').removeAttr('disabled');
-    $('#UPCD').val('');
+    
+    $('#UPCD').val($('#CDNO').val());
     $('#UPCD').removeAttr('disabled');
+    
+    $('#CDNO').val('');
+    $('#CDNO').attr('disabled');
+    
+    $('#CDLVL').val(parseInt($('#CDLVL').val()) + 1);
+    $('#CDLVL').removeAttr('disabled');
     $('#CDNAME').val('');
     $('#CDNAME').removeAttr('disabled');
     $('#USEYN').removeAttr('checked');
     $('#USEYN').removeAttr('disabled');
+    $('#USEYN').removeAttr('value');
   });
   
   $('#update').on("click", function() {
@@ -209,13 +223,16 @@ td {
     $('#UPCD').removeAttr('disabled');
     $('#CDNAME').removeAttr('disabled');
     $('#USEYN').removeAttr('disabled');
+    $('#USEYN').removeAttr('value');
   });
   
   $('#save').on("click", function() {
-	  alert(
-			  $('#CDNO').val(),$('#CDLVL').val(),$('#UPCD').val(),
-			  $('#CDNAME').val(),$('#USEYN').val());
-    
+	$('#CDNO').removeAttr('disabled');
+	if($("input:checkbox[name='USEYN']").is(':checked')){
+	      $('#USEYN').attr('value', 'Y');
+    }  else {
+        $('#USEYN').attr('value', 'N');
+    }
     $('#code').submit();
   });
   
