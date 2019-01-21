@@ -2,18 +2,9 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.study.spring.db.dao.CodeDao">
-
-    <resultMap type="com.study.spring.db.domain.Code" id="codeMap">
-        <id     column="CDNO"       property="CDNO"/>
-        <result column="CDLVL"      property="CDLVL"/>
-        <result column="UPCD"       property="UPCD"/>
-        <result column="CDNAME"     property="CDNAME"/>
-        <result column="INSUSER"    property="INSUSER"/>
-        <result column="INSDATE"    property="INSDATE"/>
-        <result column="USEYN"      property="USEYN"/>
-    </resultMap>
+<mapper namespace="com.study.spring.db.dao.ItemDao">
     
+<!-- 
     <select id="showAll" resultType="map" >
         SELECT CDNO 
                 , CDLVL
@@ -45,13 +36,6 @@
         WHERE
             CDNO = #{CDNO}
     </update>
+ -->
     
-    <select id="getCatagoList" resultType="map">
-        SELECT
-            CDNO, CDNAME
-        FROM    CODEMNG
-        WHERE UPCD = 'C0070'
-        START WITH UPCD='C0000'
-        CONNECT BY PRIOR CDNO = UPCD
-    </select>
 </mapper>

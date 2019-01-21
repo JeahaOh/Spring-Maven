@@ -23,8 +23,11 @@
 					<a href="user/logout">Logout</a>
 				</div>
 				<div>
-                    <a href="code/manage">Code</a>
-                </div>
+					<a href="code/manage">Code</a>
+				</div>
+				<div>
+					<a href="item/manage">Item</a>
+				</div>
 			</c:when>
 			<c:otherwise>
 				<div>

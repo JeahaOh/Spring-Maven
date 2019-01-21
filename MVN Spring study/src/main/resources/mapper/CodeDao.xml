@@ -46,4 +46,12 @@
             CDNO = #{CDNO}
     </update>
     
+    <select id="getCatagoList" resultType="map">
+        SELECT
+            CDNO, CDNAME
+        FROM    CODEMNG
+        WHERE UPCD = 'C0070'
+        START WITH UPCD='C0000'
+        CONNECT BY PRIOR CDNO = UPCD
+    </select>
 </mapper>
