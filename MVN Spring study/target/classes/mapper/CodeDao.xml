@@ -54,4 +54,13 @@
         START WITH UPCD='C0000'
         CONNECT BY PRIOR CDNO = UPCD
     </select>
+    
+    <select id="getDetailList" resultType="map" parameterType="string">
+        SELECT
+            CDNO, CDNAME
+        FROM    CODEMNG
+        WHERE UPCD = #{cdno}
+        START WITH UPCD='C0000'
+        CONNECT BY PRIOR CDNO = UPCD
+    </select>
 </mapper>

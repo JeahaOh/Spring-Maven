@@ -1,5 +1,6 @@
 package com.study.spring.db.controller;
 
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.study.spring.db.domain.Code;
+import com.study.spring.db.domain.Item;
 import com.study.spring.db.service.ItemService;
 
 @Controller
@@ -31,14 +34,21 @@ public class ItemController {
   }
   
   @PostMapping("/detailList")
-  public @ResponseBody String add(
+  public @ResponseBody List<Code> add(
       HttpServletRequest req,
-      HttpSession session,
       @RequestParam(value="cdno", required=true) String cdno) {
-    logger.debug("/code/insert -->", req);
+    logger.debug("/code/detailList -->", req);
     
-    System.out.println("Conroller Recieve\n\t" + cdno);
+    return itemService.getDetailList(cdno);
+  }
+  
+  @PostMapping("/searchItems")
+  public @ResponseBody List<Item> searchItems (
+      HttpServletRequest req,
+      @RequestParam(value="cdno", required=true) String cdno){
+    logger.debug("\n/code/searchList -->", req);
+    System.out.println("Controller Recieve : \n\t" + cdno);
     
-    return "hi";
+    return itemService.getSearchItems(cdno);
   }
 }

@@ -4,13 +4,15 @@ public class Item {
   String ITEMCD;        // 상품코드
   String ITEMNAME;      // 상품명
   String MADEMCD;       // 제조사코드
+  String MADENAME;      // 제조사명
   String ITEMUNITCD;    // 상품단위코드
+  String UNITNAME;      // 단위명
   int STOCKAMT;         // 재고수량
   String STOCKYN;       // 재고여부
   String INSUSER;
   String INSDATE;
   String USEYN;         // 사용여부
-  String ITEMCLSCD;
+  String ITEMCLSCD;     // 중요한것!?
   
   public Item() {  }
   

@@ -4,6 +4,23 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.study.spring.db.dao.ItemDao">
     
+    <select id="getSearchItems" resultType="map" parameterType="String">
+        SELECT i.ITEMCD
+                , i.ITEMNAME
+                , i.MADENMCD
+                , m.CDNAME MADENAME
+                , i.ITEMUNITCD
+                , u.CDNAME UNITNAME
+                , i.STOCKAMT
+                , i.STOCKYN
+                , i.USEYN
+                , i.ITEMCLSCD
+        FROM ITEMLIST i
+        JOIN CODEMNG m ON (i.MADENMCD = m.CDNO)
+        JOIN CODEMNG u ON (i.ITEMUNITCD = u.CDNO)
+        WHERE i.ITEMCLSCD = #{cdno}
+        ORDER BY ITEMCLSCD
+    </select>
 <!-- 
     <select id="showAll" resultType="map" >
         SELECT CDNO 

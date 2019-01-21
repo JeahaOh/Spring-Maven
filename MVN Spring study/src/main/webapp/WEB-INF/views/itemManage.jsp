@@ -84,7 +84,7 @@ td {
             <tr>
                 <td>카테고리</td>
                 <td>
-                    <select id="catagory1">
+                    <select id="category1">
                         <%-- 옵션 들어올 자리 --%>
                         <option value="">선택하세요</option>
                         <c:forEach items="${catagoList}" var="code">
@@ -94,12 +94,13 @@ td {
                 </td>
                 <td>1차분류</td>
                 <td>
-                    <select id="catagory2">
+                    <select id="category2">
                         <%-- 옵션 들어올 자리 --%>
+                        <option value="">카테고리선택</option>
                     </select>
                 </td>
                 <td></td>
-                <td><input type="button" id="search" name="search" value="조회"></td>
+                <td><input type="button" id="searchItems" name="searchItems" value="조회"></td>
             </tr>
         </tbody>
       </table>
@@ -207,26 +208,29 @@ td {
 <%-- ========================================================================================== --%>
 </body>
 <script>
-  $('#catagory1').on('change', function() {
-    var $cdno = (this.value);
-    // alert($cdno);
-    getDetailList($cdno);
-  });
-  
-  function getDetailList($cdno) {
+  $('#category1').on('change', function() {
+    
+    if(this.value === null || this.value == '') {
+      $('#category2').empty();
+      return;
+    }
+    
     $.ajax("/spring/item/detailList", {
         method: "POST",
-        before: function() {
-          console.log($cdno)
-        },
         data:{
-          "cdno": $cdno
+          "cdno": (this.value)
         },
         success: function(data) {
-          console.log(data);
-        },
-        complete: function() {
-          
+          $('#category2').empty();
+          if(data === null || data == '' || data.length < 1) {
+            return;
+          }
+          for (i = 0; i < data.length; i++) {
+            var options = $("<option></option");
+            options.append(data[i].CDNAME);
+            options.attr('value', data[i].CDNO);
+            $('#category2').append(options);
+          }
         },
         error: function(xhr, status, msg) {
           alert('정보를 가져오는데 실패하였습니다.');
@@ -234,9 +238,35 @@ td {
           console.log(msg);
         }
       });
-    }
+  });
   
-  
+  $('#searchItems').on('click', function() {
+     var $cdno = $('#category2 option:selected').val();
+      if($cdno === null || $cdno == ''){
+       alert('카테고리와 1차분류를 선택해 주세요.');
+       return;
+     }
+     
+     $.ajax("/spring/item/searchItems", {
+         method: "POST",
+         data:{
+           "cdno": $cdno
+         },
+         success: function(data) {
+           if(data === null || data == '' || data.length < 1){
+             alert('가져온 정보가 없습니다.');
+             return;
+           }
+           console.log(data);
+           
+         },
+         error: function(xhr, status, msg) {
+           alert('정보를 가져오는데 실패하였습니다.');
+           console.log(status);
+           console.log(msg);
+         }
+       });
+  });
   
   
   function select(cdno, cdlvl, upcd, cdname, useyn) {

@@ -8,4 +8,5 @@ public interface CodeDao {
   Boolean insert(Code code);
   Boolean update(Code code);
   List<Code> getCatagoList();
+  List<Code> getDetailList(String cdno);
 }
