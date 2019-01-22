@@ -26,7 +26,10 @@ Maven을 이용한 Spring Study
     - http://www.nextree.co.kr/p10155/
     - ?
         - https://books.google.co.kr/books?id=QeUlDwAAQBAJ&pg=PA742&lpg=PA742&dq=ajax%EB%A1%9C+%EA%B0%80%EC%A0%B8%EC%98%A8+%EB%8D%B0%EC%9D%B4%ED%84%B0+html%EB%A1%9C+%EB%BF%8C%EB%A6%AC%EA%B8%B0&source=bl&ots=vOvpJzAtnX&sig=ACfU3U02kbbpGJrnQ6FehD4RzDg7lTI_Cw&hl=ko&sa=X&ved=2ahUKEwi0mIW5pIDgAhWDe7wKHYCSAbcQ6AEwB3oECAIQAQ#v=onepage&q&f=false
-    
+    - http://www.nextree.co.kr/p10155/
+    - eclipse javascript 자동완성 tool
+        - tern
+        - https://handcoding.tistory.com/8
 
 - - -
 ## 19.01.16 코드관리

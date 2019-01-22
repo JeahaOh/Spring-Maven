@@ -63,4 +63,22 @@
         START WITH UPCD='C0000'
         CONNECT BY PRIOR CDNO = UPCD
     </select>
+    
+    <select id="getMadeNmList" resultType="map">
+        SELECT
+            CDNO, CDNAME
+        FROM    CODEMNG
+        WHERE UPCD = 'C0050'
+        START WITH UPCD='C0000'
+        CONNECT BY PRIOR CDNO = UPCD
+    </select>
+    
+    <select id="getUnitList" resultType="map">
+        SELECT
+            CDNO, CDNAME
+        FROM    CODEMNG
+        WHERE UPCD = 'C0060'
+        START WITH UPCD='C0000'
+        CONNECT BY PRIOR CDNO = UPCD
+    </select>
 </mapper>

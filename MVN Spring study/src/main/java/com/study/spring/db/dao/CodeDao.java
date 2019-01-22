@@ -9,4 +9,6 @@ public interface CodeDao {
   Boolean update(Code code);
   List<Code> getCatagoList();
   List<Code> getDetailList(String cdno);
+  List<Code> getMadeNmList();
+  List<Code> getUnitList();
 }

@@ -30,6 +30,8 @@ public class ItemController {
     logger.debug("/itme/manage -->", session);
     
     model.addAttribute("catagoList", itemService.getCatagoList());
+    model.addAttribute("madeNmList", itemService.getMadeNmList());
+    model.addAttribute("unitList", itemService.getUnitList());
     return "itemManage";
   }
   

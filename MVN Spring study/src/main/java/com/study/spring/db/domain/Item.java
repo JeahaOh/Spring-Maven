@@ -14,6 +14,7 @@ public class Item {
   String USEYN;         // 사용여부
   String ITEMCLSCD;     // 중요한것!?
   
+  
   public Item() {  }
   
   public String getITEMCD() {

@@ -33,4 +33,13 @@ public class ItemServiceImpl implements ItemService {
     return itemDao.getSearchItems(cdno);
   }
   
+  @Override
+  public List<Code> getMadeNmList() {
+    return codeDao.getMadeNmList();
+  }
+  
+  @Override
+  public List<Code> getUnitList() {
+    return codeDao.getUnitList();
+  }
 }

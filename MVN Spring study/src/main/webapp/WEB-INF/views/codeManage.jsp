@@ -226,6 +226,11 @@ td {
   });
   
   $('#save').on("click", function() {
+	  if( ($('#code').hasClass('add') === false) || ($('#code').hasClass('update') === false) ) {
+		  console.log('return');
+		  return;
+	  }
+	  
 	$('#CDNO').removeAttr('disabled');
 	if($("input:checkbox[name='USEYN']").is(':checked')){
 	      $('#USEYN').attr('value', 'Y');
@@ -235,7 +240,6 @@ td {
     $('#code').submit();
   });
   
-
   // 모달 열기.
   var modal = document.getElementById('modal');
   function openModal() {

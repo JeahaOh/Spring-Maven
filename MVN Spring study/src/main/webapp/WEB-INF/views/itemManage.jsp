@@ -24,6 +24,10 @@ table tbody tr {
   cursor: pointer;
 }
 
+table tbody td {
+  min-width: 80px;
+}
+
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -78,10 +82,9 @@ input[type=button] {
       <h2>Item List</h2>
       <p>카테고리
         <select id="category1">
-          <%-- 옵션 들어올 자리 --%>
           <option value="">선택하세요</option>
             <c:forEach items="${catagoList}" var="code">
-              <option value="${code.CDNO}">"${code.CDNAME}"</option>
+              <option value="${code.CDNO}">${code.CDNAME}</option>
             </c:forEach>
         </select>
         1차분류
@@ -117,67 +120,68 @@ input[type=button] {
     <!-- Modal content -->
     <div class="modal-content">
       <span class="close">&times;</span>
-      <p>코드 상세</p>
+      <p>코드내용</p>
       <div class="container">
         <form id="item" method="post">
-          <input type="hidden" id="loginUser" name="loginUser"
-            value="${sessionScope.loginUser.id}">
+          <input type="hidden" id="loginUser" name="loginUser" value="${sessionScope.loginUser.id}">
           <table class="itemDetail">
-            <thead>
-              <tr>
-                <th colspan="4">코드내용</th>
-              </tr>
-            </thead>
             <tbody>
               <tr>
-                <td>코드번호:</td>
-                <td colspan="2"><input type="text" id="CDNO" name="CDNO" disabled></td>
+                <td>상품코드</td>
+                <td><input type="text" id="itemcd" name="itemcd" disabled></td>
+                <td colspan="3"></td>
               </tr>
               <tr>
-                <td>코드레벨</td>
-                <td colspan="2"><input type="number" id="CDLVL" name="CDLVL" min="0" max="10" disabled required></td>
+                <td>상품명</td>
+                <td colspan="3"><input type="text" id="itemname" name="itemname" disabled></td>
               </tr>
               <tr>
-                <td>상위코드:</td>
-                <td colspan="2"><input type="text" id="UPCD" name="UPCD"
-                  pattern="C[0-9]{4}" disabled required></td>
-              </tr>
-              <tr>
-                <td>코드이름</td>
-                <td colspan="2"><input type="text" id="CDNAME"
-                  name="CDNAME" disabled required></td>
+                <td>제조사</td>
+                <td>
+                  <select id="MADENAME" disabled>
+                    <c:forEach items="${madeNmList}" var="code">
+                      <option value="${code.CDNO}">${code.CDNAME}</option>
+                    </c:forEach>
+                  </select>
+                </td>
+                <td>단위명</td>
+                <td>
+                  <select id="UNITNAME" disabled>
+                    <c:forEach items="${unitList}" var="code">
+                      <option value="${code.CDNO}">${code.CDNAME}</option>
+                    </c:forEach>
+                  </select>
+                </td>
               </tr>
               <tr>
                 <td>사용여부</td>
-                <td colspan="2"><input type="checkbox" id="USEYN"
-                  name="USEYN" disabled required></td>
+                <td colspan="3"><input type="checkbox" id="useyn" name="useyn" disabled></td>
               </tr>
             </tbody>
             <tfoot>
               <tr>
-                <td><input type="button" id="add" name="add" value="추가" />
-                </td>
-                <td><input type="button" id="update" name="update"
-                  value="수정" /></td>
-                <td><input type="button" id="save" name="save" value="저장" />
-                </td>
+                <td></td>
+                <td><input type="button" id="add" name="add" value="추가" /></td>
+                <td><input type="button" id="update" name="update" value="수정" /></td>
+                <td><input type="button" id="save" name="save" value="저장" /></td>
               </tr>
           </table>
         </form>
       </div>
     </div>
+    
 
   </div>
   <%-- ========================================================================================== --%>
 </body>
-<script>
+  <script>
   $('#category1').on('change', function() {
-    if(this.value === null || this.value == '') {
-      $('#category2').empty();
-      return;
-    }
-    
-    $.ajax("/spring/item/detailList", {
+      if(this.value === null || this.value == '') {
+        $('#category2').empty();
+        return;
+      }
+  
+      $.ajax("/spring/item/detailList", {
         method: "POST",
         data:{
           "cdno": (this.value)
@@ -200,149 +204,172 @@ input[type=button] {
           console.log(msg);
         }
       });
-  });
-  
-  $('#searchItems').on('click', function() {
-     var $cdno = $('#category2 option:selected').val();
-      if($cdno === null || $cdno == ''){
-       alert('카테고리와 1차분류를 선택해 주세요.');
-       return;
-     }
-     
-     $.ajax("/spring/item/searchItems", {
-         method: "POST",
-         data:{
-           "cdno": $cdno
-         },
-         success: function(data) {
-           if(data === null || data == '' || data.length < 1){
-             alert('가져온 정보가 없습니다.');
-             return;
-           }
-           console.log(data);
-           $.each(data, function (i, item) {
-             $('#itemListBody').append(item.ITEMCD + '<br>');
-           });
-           var print = makeHtml(data);
-           $('#itemListBody').html(print);
-         },
-         error: function(xhr, status, msg) {
-           alert('정보를 가져오는데 실패하였습니다.');
-           console.log(status);
-           console.log(msg);
-         }
-       });
-  });
-  
-<%--
-ITEMCD , ITEMNAME, MADENMCD, MADENAME, ITEMUNITCD, UNITNAME, STOCKAMT, STOCKYN, USEYN, ITEMCLSCD
---%>
-  
-  function makeHtml(data) {
-    var html = '';
-    $.each(data, function(i, obj) {
-      html += `<tr class="item" onclick="select()">`
-      html += `<td>` + obj.ITEMCD + `</td>`
-      html += `<td>` + obj.ITEMNAME + `</td>`
-      html += `<td>` + obj.MADENMCD + `</td>`
-      html += `<td>` + obj.MADENAME + `</td>`
-      html += `<td>` + obj.ITEMUNITCD + `</td>`
-      html += `<td>` + obj.UNITNAME + `</td>`
-      html += `<td>` + obj.STOCKAMT + `</td>`
-      html += `<td>` + obj.STOCKYN + `</td>`
-      html += `<td>` + obj.USEYN + `</td>`
-      html += `</tr>`
     });
-    return html;
-    console.log(html);
-  }
   
+    $('#searchItems').on('click', function() {
+      var $cdno = $('#category2 option:selected').val();
+      if($cdno === null || $cdno == ''){
+        alert('카테고리와 1차분류를 선택해 주세요.');
+        return;
+      }
   
-  function select(cdno, cdlvl, upcd, cdname, useyn) {
-    $('#CDNO').val(cdno);
-    $('#CDLVL').val(cdlvl);
-    $('#UPCD').val(upcd);
-    $('#CDNAME').val(cdname);
-    if(useyn=="Y"){
-        $('#USEYN').attr('checked', 'checked');
-        $('#USEYN').attr('value', 'Y');
-    }   else {
-        $('#USEYN').removeAttr('checked');
-        $('#USEYN').attr('value', 'N');
+      $.ajax("/spring/item/searchItems", {
+        method: "POST",
+        data:{
+          "cdno": $cdno
+        },
+        success: function(data) {
+          if(data === null || data == '' || data.length < 1){
+            alert('가져온 정보가 없습니다.');
+            return;
+          }
+          var print = makeHtml(data);
+          $('#itemListBody').html(print);
+        },
+        error: function(xhr, status, msg) {
+          alert('정보를 가져오는데 실패하였습니다.');
+          console.log(status);
+          console.log(msg);
+        }
+      });
+    });
+  
+    /*
+    ITEMCD , ITEMNAME, MADENMCD, MADENAME, ITEMUNITCD, UNITNAME, STOCKAMT, STOCKYN, USEYN, ITEMCLSCD
+    */
+  
+    function makeHtml(data) {
+      var html = '';
+      $.each(data, function(i, obj) {
+        html += `<tr class="item" id="`+ obj.ITEMCD +`"`;
+        html += `onclick="select('` + obj.ITEMCD + `', '` + obj.ITEMNAME + `', '` + obj.MADENMCD + `', '` + obj.ITEMUNITCD + `', '` + obj.USEYN + `')"`;
+        html += `data-ITEMCD="` + obj.ITEMCD + `" data-ITEMNAME="` + obj.ITEMNAME + `" data-MADENMCD="` + obj.MADENMCD + `"`;
+        html += `data-MADENAME="` + obj.MADENAME + `" data-ITEMUNITCD="` + obj.ITEMUNITCD + `" data-UNITNAME="` + obj.UNITNAME + `"`;
+        html += `data-STOCKAMT="` + obj.STOCKAMT + `" data-STOCKYN="` + obj.STOCKYN + `" data-USEYN="` + obj.USEYN + `"`;
+        html += `>`;
+        html += `  <td>` + obj.ITEMCD + `</td>`;
+        html += `  <td>` + obj.ITEMNAME + `</td>`;
+        html += `  <td>` + obj.MADENMCD + `</td>`;
+        html += `  <td>` + obj.MADENAME + `</td>`;
+        html += `  <td>` + obj.ITEMUNITCD + `</td>`;
+        html += `  <td>` + obj.UNITNAME + `</td>`;
+        html += `  <td>` + obj.STOCKAMT + `</td>`;
+        if(obj.STOCKYN == 'Y') {
+          html += `<td><input type="checkbox" checked disabled></td>`;
+        } else if (obj.STOCKYN == 'N'){
+          html += `<td><input type="checkbox" disabled></td>`;
+        }
+        if(obj.USEYN == 'Y') {
+          html += `<td><input type="checkbox" checked disabled></td>`;
+        } else if (obj.USEYN == 'N'){
+          html += `<td><input type="checkbox" disabled></td>`;
+        }
+        html += `</tr>`;
+      });
+      return html;
     }
-    openModal();
-  }
   
-  $('#add').on("click", function() {
-    $('#code').attr('action', '/spring/code/add');
-    $('#code').removeClass('update');
-    $('#code').addClass('add');
-    
-    $('#UPCD').val($('#CDNO').val());
-    $('#UPCD').removeAttr('disabled');
-    
-    $('#CDNO').val('');
-    $('#CDNO').attr('disabled');
-    
-    $('#CDLVL').val(parseInt($('#CDLVL').val()) + 1);
-    $('#CDLVL').removeAttr('disabled');
-    $('#CDNAME').val('');
-    $('#CDNAME').removeAttr('disabled');
-    $('#USEYN').removeAttr('checked');
-    $('#USEYN').removeAttr('disabled');
-    $('#USEYN').removeAttr('value');
-  });
+    function select(itemcd, itemname, madenmcd, unitcd, useyn) {
+      $('#itemcd').val(itemcd);
+      $('#itemname').val(itemname);
   
-  $('#update').on("click", function() {
-    $('#code').attr('action', '/spring/code/update');
-    $('#code').removeClass('add');
-    $('#code').addClass('update');
-    $('#CDNO').attr('readonly');
-    $('#CDLVL').removeAttr('disabled');
-    $('#UPCD').removeAttr('disabled');
-    $('#CDNAME').removeAttr('disabled');
-    $('#USEYN').removeAttr('disabled');
-    $('#USEYN').removeAttr('value');
-  });
+      $('#MADENAME option[value=' + madenmcd + ']').attr('selected', 'selected');
+      $('#UNITNAME option[value=' + unitcd + ']').attr('selected', 'selected');
   
-  $('#save').on("click", function() {
-    $('#CDNO').removeAttr('disabled');
-    if($("input:checkbox[name='USEYN']").is(':checked')){
-          $('#USEYN').attr('value', 'Y');
-    }  else {
-        $('#USEYN').attr('value', 'N');
+      if(useyn == "Y"){
+        $('#useyn').attr('checked', 'checked');
+        $('#useyn').attr('value', 'Y');
+      }   else {
+        $('#useyn').removeAttr('checked');
+        $('#useyn').attr('value', 'N');
+      }
+      openModal();
     }
-    $('#code').submit();
-  });
   
-
-  // 모달 열기.
-  var modal = document.getElementById('modal');
-  function openModal() {
-    modal.style.display = "block";
-  }
-  // span의 X를 눌러 모달 닫기.
-  var span = document.getElementsByClassName("close")[0];
-  span.onclick = function() {
+    $('#add').on("click", function() {
+      if( $('#item').hasClass("add") === true ) {
+        return;
+      }
+      
+      $('#item').attr('action', '/spring/item/add');
+      $('#item').removeClass('update');
+      $('#item').addClass('add');
+  
+      $('#itemcd').val('');
+      
+      $('#itemname').val();
+      $('#itemname').removeAttr('disabled');
+  
+      $('#MADENAME').removeAttr('disabled');
+      $('#UNITNAME').removeAttr('disabled');
+      $('#useyn').removeAttr('disabled');
+  
+    });
+  
+    $('#update').on("click", function() {
+      if( $('#item').hasClass("update") === true ) {
+        return;
+      }
+      
+      $('#item').attr('action', '/spring/item/update');
+      $('#item').removeClass('add');
+      $('#item').addClass('update');
+      
+      $('#itemcd').removeAttr('disabled');
+      $('#itemcd').attr('readonly', 'readonly');
+      
+      $('#itemname').removeAttr('disabled');
+  
+      $('#MADENAME').removeAttr('disabled');
+      $('#UNITNAME').removeAttr('disabled');
+      $('#useyn').removeAttr('disabled');
+    });
+  
+    $('#save').on("click", function() {
+      if( ($('#item').hasClass('add') === false) || ($('#item').hasClass('update') === false) ) {
+          console.log('return');
+          return;
+      }
+      
+      if($("input:checkbox[name='useyn']").is(':checked')){
+        $('#useyn').attr('value', 'Y');
+      }  else {
+        $('#useyn').removeAttr('checked');
+        $('#useyn').attr('value', 'N');
+      }
+      $('#code').submit();
+    });
+  
+  
+    // 모달 열기.
+    var modal = document.getElementById('modal');
+    function openModal() {
+      modal.style.display = "block";
+    }
+    // span의 X를 눌러 모달 닫기.
+    var span = document.getElementsByClassName("close")[0];
+    span.onclick = function() {
       exitModal();
-  }
-
-  // modal 밖 클릭시 닫기.
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      exitModal();
     }
-  }
-  function exitModal(){
-    modal.style.display = "none";
-    $('#code').attr('action', '#');
-    $('#code').removeClass('add');
-    $('#code').removeClass('update');
-    $('#CDNO').attr('disabled','disabled');
-    $('#CDLVL').attr('disabled','disabled');
-    $('#UPCD').attr('disabled','disabled');
-    $('#CDNAME').attr('disabled','disabled');
-    $('#USEYN').attr('disabled','disabled');
-  }
-</script>
+  
+    // modal 밖 클릭시 닫기.
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        exitModal();
+      }
+    }
+    
+    function exitModal(){
+      modal.style.display = "none";
+      $('#code').attr('action', '#');
+      $('#code').removeClass('add');
+      $('#code').removeClass('update');
+      $('#itemcd').attr('disabled','disabled');
+      $('#itemname').attr('disabled','disabled');
+      $('#MADENAME').attr('disabled','disabled');
+      $('#UNITNAME').attr('disabled','disabled');
+      $('#useyn').attr('disabled','disabled');
+    }
+  </script>
+
 </html>

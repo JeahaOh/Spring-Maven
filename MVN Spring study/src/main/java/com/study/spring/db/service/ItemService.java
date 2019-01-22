@@ -8,4 +8,6 @@ public interface ItemService {
   List<Code> getCatagoList();
   List<Code> getDetailList(String cdno);
   List<Item> getSearchItems(String cdno);
+  List<Code> getMadeNmList();
+  List<Code> getUnitList();
 }
