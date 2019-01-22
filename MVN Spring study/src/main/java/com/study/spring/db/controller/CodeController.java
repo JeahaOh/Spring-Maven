@@ -28,7 +28,7 @@ public class CodeController {
     logger.debug("/code/manage -->", session);
     
     model.addAttribute("codeList", codeService.showAll());
-    return "codeManage";
+    return "/Code/codeManage";
   }
   
   @PostMapping("/add")

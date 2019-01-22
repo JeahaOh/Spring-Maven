@@ -17,28 +17,28 @@ public class ErrController {
   public String loginErr(HttpServletResponse res) {
     logger.debug("---->>>>>>" + res);
     res.setHeader("Refresh", "2;url=/spring/user/manage");
-    return "loginErr";
+    return "/Err/loginErr";
   }
   
   @RequestMapping("/logon")
   public String logon(HttpServletResponse res) {
     logger.debug("---->>>>>>" + res);
     res.setHeader("Refresh", "2;url=/spring/");
-    return "logon";
+    return "/Err/logon";
   }
   
   @RequestMapping("/signUp")
   public String signUpErr(HttpServletResponse res) {
     logger.debug("---->>>>>>" + res);
     res.setHeader("Refresh", "2;url=/spring/user/signIn");
-    return "signUpErr";
+    return "/Err/signUpErr";
   }
   
   @RequestMapping("/codeErr")
   public String codeErr(HttpServletResponse res, HttpServlet servlet) {
     logger.debug("---->>>>>>" + res);
     res.setHeader("Refresh", "2;url=/spring/code/manage");
-    return "codeErr";
+    return "/Err/codeErr";
   }
   
 }

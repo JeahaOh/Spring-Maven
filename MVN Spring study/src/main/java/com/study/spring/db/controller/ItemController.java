@@ -32,7 +32,7 @@ public class ItemController {
     model.addAttribute("catagoList", itemService.getCatagoList());
     model.addAttribute("madeNmList", itemService.getMadeNmList());
     model.addAttribute("unitList", itemService.getUnitList());
-    return "itemManage";
+    return "/Item/itemManage";
   }
   
   @PostMapping("/detailList")

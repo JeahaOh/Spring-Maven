@@ -21,7 +21,7 @@ public class MembController {
 			List<Memb> membList = membService.membList();
 			model.addAttribute("membList", membList);
 		
-		return "membList";
+		return "Emp/membList";
 	}
 	
 }

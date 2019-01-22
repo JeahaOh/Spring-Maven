@@ -33,7 +33,7 @@ public class UserController {
     if(session.getAttribute("loginUser") != null) {
       return "redirect:/err/logon";
     }
-    return "user";
+    return "/User/user";
   }
 
   @RequestMapping(value="/login", method=RequestMethod.POST)
@@ -67,7 +67,7 @@ public class UserController {
   @RequestMapping(value="/signIn", method=RequestMethod.GET)
   public String signIn(HttpSession session) {
     logger.debug("/user/manage -->", session);
-    return "join";
+    return "/User/join";
   }
   
   @RequestMapping(value="/idCheck", method=RequestMethod.POST)
@@ -110,7 +110,7 @@ public class UserController {
     logger.debug("/user/detail -->", session);
     User user = (User)session.getAttribute("newbie");
     System.out.println("session newbie : " + user.toString());
-    return "/init";
+    return "/User/init";
   }
   
   @PostMapping("/init")
