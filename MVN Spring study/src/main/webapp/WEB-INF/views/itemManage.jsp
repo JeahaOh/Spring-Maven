@@ -15,57 +15,54 @@ table {
   text-align: center;
 }
 
-table tbody tr {
-  background-color: beige;
+table thead th {
+  min-width: 80px;
 }
 
-table tbody  tr {
+table tbody tr {
+  background-color: beige;
   cursor: pointer;
 }
 
-td {
-    min-width: 100px;
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
-/* The Modal (background) */
-    .modal {
-      display: none; /* Hidden by default */
-      position: fixed; /* Stay in place */
-      z-index: 1; /* Sit on top */
-      left: 0;
-      top: 0;
-      width: 100%; /* Full width */
-      height: 100%; /* Full height */
-      overflow: auto; /* Enable scroll if needed */
-      background-color: rgb(0, 0, 0); /* Fallback color */
-      background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-    }
-    
-    /* Modal Content/Box */
-    .modal-content {
-      background-color: #fefefe;
-      margin: 15% auto; /* 15% from the top and centered */
-      padding: 20px;
-      border: 1px solid #888;
-      width: 50%; /* Could be more or less, depending on screen size */
-    }
-    /* The Close Button */
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
-    
-    .close:hover, .close:focus {
-      color: black;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    
-    input[type=button]{
-       width: 80px;
-    }
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+}
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover, .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+input[type=button] {
+  width: 80px;
+}
 </style>
 <script
   src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
@@ -75,35 +72,25 @@ td {
 </script>
 </head>
 <body>
-<%-- ========================================================================================== --%>
+  <%-- ========================================================================================== --%>
   <div>
     <div class="container">
       <h2>Item List</h2>
-      <table class="category">
-        <tbody>
-            <tr>
-                <td>카테고리</td>
-                <td>
-                    <select id="category1">
-                        <%-- 옵션 들어올 자리 --%>
-                        <option value="">선택하세요</option>
-                        <c:forEach items="${catagoList}" var="code">
-                            <option value="${code.CDNO}">"${code.CDNAME}"</option>
-                        </c:forEach>
-                    </select>
-                </td>
-                <td>1차분류</td>
-                <td>
-                    <select id="category2">
-                        <%-- 옵션 들어올 자리 --%>
-                        <option value="">카테고리선택</option>
-                    </select>
-                </td>
-                <td></td>
-                <td><input type="button" id="searchItems" name="searchItems" value="조회"></td>
-            </tr>
-        </tbody>
-      </table>
+      <p>카테고리
+        <select id="category1">
+          <%-- 옵션 들어올 자리 --%>
+          <option value="">선택하세요</option>
+            <c:forEach items="${catagoList}" var="code">
+              <option value="${code.CDNO}">"${code.CDNAME}"</option>
+            </c:forEach>
+        </select>
+        1차분류
+        <select id="category2">
+          <%-- 옵션 들어올 자리 --%>
+          <option value="">카테고리선택</option>
+        </select>
+        <input type="button" id="searchItems" name="searchItems" value="조회">
+      </p>
       <table class="itemList">
         <thead>
           <tr>
@@ -119,29 +106,12 @@ td {
           </tr>
         </thead>
         <tbody id="itemListBody">
-          <c:forEach items="${codeList}" var="Code">
-            <tr class="${Code.CDNO}" 
-            onclick="select(`${Code.CDNO}`, `${Code.CDLVL}`, `${Code.UPCD}`, `${Code.CDNAME}`, `${Code.USEYN}`)">
-              <td class="CDNO">${Code.CDNO}</td>
-              <td class="CDLVL" style="text-align:none">${Code.CDLVL}</td>
-              <td class="UPCD">${Code.UPCD}</td>
-              <td class="CDNAME">${Code.CDNAME}</td>
-              <td class="checkbox"><c:choose>
-                  <c:when test="${Code.USEYN eq 'Y'}">
-                    <input type="checkbox" name="${Code.CDNO}" value="Y" checked disabled>
-                  </c:when>
-                  <c:otherwise>
-                    <input type="checkbox" name="${Code.CDNO}" value="N" disabled>
-                  </c:otherwise>
-                </c:choose>
-              </td>
-            </tr>
-          </c:forEach>
+        <%-- itemList 들어올 자리 --%>
         </tbody>
       </table>
     </div>
   </div>
-<%-- ========================================================================================== --%>
+  <%-- ========================================================================================== --%>
   <!-- The Modal -->
   <div id="modal" class="modal">
     <!-- Modal content -->
@@ -150,7 +120,8 @@ td {
       <p>코드 상세</p>
       <div class="container">
         <form id="item" method="post">
-          <input type="hidden" id="loginUser" name="loginUser" value="${sessionScope.loginUser.id}">
+          <input type="hidden" id="loginUser" name="loginUser"
+            value="${sessionScope.loginUser.id}">
           <table class="itemDetail">
             <thead>
               <tr>
@@ -164,39 +135,31 @@ td {
               </tr>
               <tr>
                 <td>코드레벨</td>
-                <td colspan="2">
-                    <input type="number" id="CDLVL" name="CDLVL" min="0" max="10" disabled required>
-                </td>
+                <td colspan="2"><input type="number" id="CDLVL" name="CDLVL" min="0" max="10" disabled required></td>
               </tr>
               <tr>
                 <td>상위코드:</td>
-                <td colspan="2">
-                    <input type="text" id="UPCD" name="UPCD" pattern="C[0-9]{4}" disabled required>
-                </td>
+                <td colspan="2"><input type="text" id="UPCD" name="UPCD"
+                  pattern="C[0-9]{4}" disabled required></td>
               </tr>
               <tr>
                 <td>코드이름</td>
-                <td colspan="2">
-                    <input type="text" id="CDNAME" name="CDNAME" disabled required>
-                </td>
+                <td colspan="2"><input type="text" id="CDNAME"
+                  name="CDNAME" disabled required></td>
               </tr>
               <tr>
                 <td>사용여부</td>
-                <td colspan="2">
-                    <input type="checkbox" id="USEYN" name="USEYN" disabled required>
-                </td>
+                <td colspan="2"><input type="checkbox" id="USEYN"
+                  name="USEYN" disabled required></td>
               </tr>
             </tbody>
             <tfoot>
               <tr>
-                <td>
-                  <input type="button" id="add" name="add" value="추가" />
+                <td><input type="button" id="add" name="add" value="추가" />
                 </td>
-                <td>
-                  <input type="button" id="update" name="update" value="수정" />
-                </td>
-                <td>
-                  <input type="button" id="save" name="save" value="저장" />
+                <td><input type="button" id="update" name="update"
+                  value="수정" /></td>
+                <td><input type="button" id="save" name="save" value="저장" />
                 </td>
               </tr>
           </table>
@@ -205,11 +168,10 @@ td {
     </div>
 
   </div>
-<%-- ========================================================================================== --%>
+  <%-- ========================================================================================== --%>
 </body>
 <script>
   $('#category1').on('change', function() {
-    
     if(this.value === null || this.value == '') {
       $('#category2').empty();
       return;
@@ -258,7 +220,11 @@ td {
              return;
            }
            console.log(data);
-           
+           $.each(data, function (i, item) {
+             $('#itemListBody').append(item.ITEMCD + '<br>');
+           });
+           var print = makeHtml(data);
+           $('#itemListBody').html(print);
          },
          error: function(xhr, status, msg) {
            alert('정보를 가져오는데 실패하였습니다.');
@@ -267,6 +233,29 @@ td {
          }
        });
   });
+  
+<%--
+ITEMCD , ITEMNAME, MADENMCD, MADENAME, ITEMUNITCD, UNITNAME, STOCKAMT, STOCKYN, USEYN, ITEMCLSCD
+--%>
+  
+  function makeHtml(data) {
+    var html = '';
+    $.each(data, function(i, obj) {
+      html += `<tr class="item" onclick="select()">`
+      html += `<td>` + obj.ITEMCD + `</td>`
+      html += `<td>` + obj.ITEMNAME + `</td>`
+      html += `<td>` + obj.MADENMCD + `</td>`
+      html += `<td>` + obj.MADENAME + `</td>`
+      html += `<td>` + obj.ITEMUNITCD + `</td>`
+      html += `<td>` + obj.UNITNAME + `</td>`
+      html += `<td>` + obj.STOCKAMT + `</td>`
+      html += `<td>` + obj.STOCKYN + `</td>`
+      html += `<td>` + obj.USEYN + `</td>`
+      html += `</tr>`
+    });
+    return html;
+    console.log(html);
+  }
   
   
   function select(cdno, cdlvl, upcd, cdname, useyn) {

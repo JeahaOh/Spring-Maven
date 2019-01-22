@@ -18,10 +18,15 @@ Maven을 이용한 Spring Study
 ```
 1. 카테고리 콤보: 코드관리에서 상품관련 분류코드 만든 후 대분류에 해당하는 코드와 데이터를 넣을 것.
 2. 카테고리 콤보에서 대분류 하나를 선택하면 1차분류에서 그 하위 분류로 쿼리하여 코드와 데이터를  ajax로 넣을것
-3. 제조사의 데이터토 코드관리에서 넣은 제조사 코드로 관리.
+3. 제조사의 데이터도 코드관리에서 넣은 제조사 코드로 관리.
 4. 단위위 데이터도 제[조사와 동일하게 관리.
 5. 저장을 클릭하면 수정은 update, 추가는 insert할 것.
 6. 상품코드번호 max증가값 적용할 것.
+
+    - http://www.nextree.co.kr/p10155/
+    - ?
+        - https://books.google.co.kr/books?id=QeUlDwAAQBAJ&pg=PA742&lpg=PA742&dq=ajax%EB%A1%9C+%EA%B0%80%EC%A0%B8%EC%98%A8+%EB%8D%B0%EC%9D%B4%ED%84%B0+html%EB%A1%9C+%EB%BF%8C%EB%A6%AC%EA%B8%B0&source=bl&ots=vOvpJzAtnX&sig=ACfU3U02kbbpGJrnQ6FehD4RzDg7lTI_Cw&hl=ko&sa=X&ved=2ahUKEwi0mIW5pIDgAhWDe7wKHYCSAbcQ6AEwB3oECAIQAQ#v=onepage&q&f=false
+    
 
 - - -
 ## 19.01.16 코드관리
